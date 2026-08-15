@@ -48,3 +48,8 @@ Depuis l'administration, les images locales sont redimensionnées côté navigat
 ## Maintenance
 
 Le bouton de maintenance écrit maintenant dans `site_settings` sur Supabase. L'admin reste accessible pendant la maintenance.
+
+## Boutique / panier WhatsApp
+La page `/soins-capillaires` utilise les produits publies de Supabase via `/api/products`.
+Le panier est conserve dans `localStorage`, gere les quantites, calcule le total FCFA quand les prix sont renseignes et genere un recapitulatif de commande vers WhatsApp (`22371989895`).
+Les prestations salon restent reservees separement sur WhatsApp.
