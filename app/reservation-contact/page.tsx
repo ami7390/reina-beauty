@@ -1,3 +1,4 @@
+import { ManagedImage } from "@/components/managed-image";
 import { Clock3, HeartHandshake, MapPin, MessageCircle, Phone, ShieldCheck } from "lucide-react";
 import { phone, phoneDisplay, whatsapp } from "@/lib/reina-data";
 import { ContactMessageForm } from "@/components/contact-message-form";
@@ -6,7 +7,7 @@ export default function ContactPage() {
   return <main className="min-h-screen bg-luxury-bg pb-20">
     <section className="relative isolate min-h-[520px] overflow-hidden border-b border-luxury-line px-5 py-20 text-white lg:flex lg:min-h-[620px] lg:items-center lg:px-8">
       {/* Image authentique issue de la vidéo de l'équipe @reinabeauties. */}
-      <img src="/images/equipe/reina-team-contact-hero.webp" alt="L’équipe Reina Beauty dans le salon de Bamako" className="absolute inset-0 -z-20 h-full w-full object-cover object-[67%_center] sm:object-center" />
+      <ManagedImage src="/images/equipe/reina-team-contact-hero.webp" alt="L’équipe Reina Beauty dans le salon de Bamako" className="absolute inset-0 -z-20 h-full w-full object-cover object-[67%_center] sm:object-center" />
       <div className="absolute inset-0 -z-10 bg-gradient-to-r from-luxury-deep/95 via-luxury-wine/70 to-luxury-deep/10" />
       <div className="mx-auto w-full max-w-7xl">
         <div className="max-w-xl">

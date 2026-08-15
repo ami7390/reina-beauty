@@ -1,5 +1,7 @@
 "use client";
 
+import { ManagedImage } from "@/components/managed-image";
+
 import { motion } from "framer-motion";
 import {
   ArrowRight,
@@ -209,7 +211,7 @@ export default function HomePage() {
             transition={{ duration: 0.75 }}
             className="relative min-h-[420px] lg:min-h-[600px]"
           >
-            <img src="/images/soins/baume/reina-baume-preparation-tiktok.webp" alt="Préparation d’un soin botanique Reina Beauty" className="absolute inset-0 h-full w-full object-cover" />
+            <ManagedImage src="/images/soins/baume/reina-baume-preparation-tiktok.webp" alt="Préparation d’un soin botanique Reina Beauty" className="absolute inset-0 h-full w-full object-cover" />
             <div className="absolute inset-0 bg-gradient-to-t from-luxury-deep/70 via-transparent to-transparent" />
             <div className="absolute bottom-7 left-7 rounded-2xl border border-white/20 bg-black/25 px-5 py-4 backdrop-blur-md">
               <p className="text-[10px] font-bold uppercase tracking-[.2em] text-luxury-champagne">Préparations artisanales</p>
@@ -253,7 +255,7 @@ export default function HomePage() {
               transition={{ duration: 0.7 }}
               className="relative flex min-h-[520px] items-center justify-center overflow-hidden rounded-2xl bg-black/35 lg:col-span-2 lg:min-h-[620px]"
             >
-              <img
+              <ManagedImage
                 src="/images/coiffures/locks/reina-video-microlocks-poster.jpg"
                 alt=""
                 aria-hidden="true"
@@ -334,7 +336,7 @@ function EditorialImage({ src, alt, label, tall = false }: { src: string; alt: s
   return (
     <motion.figure whileHover={{ y: -6 }} className={`group relative overflow-hidden rounded-3xl border-2 border-white shadow-xl ${tall ? "h-72 sm:h-80" : "h-48 sm:h-52"}`}>
       {/* eslint-disable-next-line @next/next/no-img-element */}
-      <img src={src} alt={alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+      <ManagedImage src={src} alt={alt} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" />
       <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-transparent to-transparent" />
       <figcaption className="absolute bottom-4 left-4 font-serif text-xs uppercase tracking-widest text-white">{label}</figcaption>
     </motion.figure>

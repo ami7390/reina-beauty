@@ -3,6 +3,7 @@ import Script from "next/script";
 import { Cormorant_Garamond, Inter } from "next/font/google";
 import "./globals.css";
 import { SiteShell } from "@/components/site-shell";
+import { SiteMediaProvider } from "@/components/site-media-provider";
 
 const inter = Inter({ variable: "--font-inter", subsets: ["latin"] });
 const cormorant = Cormorant_Garamond({
@@ -28,7 +29,7 @@ export default function RootLayout({
   return (
     <html lang="fr">
       <body className={`${inter.variable} ${cormorant.variable} antialiased`}>
-        <SiteShell>{children}</SiteShell>
+        <SiteMediaProvider><SiteShell>{children}</SiteShell></SiteMediaProvider>
 
         <Script
           src={`https://www.googletagmanager.com/gtag/js?id=${GOOGLE_ANALYTICS_ID}`}

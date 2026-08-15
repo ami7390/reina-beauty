@@ -20,3 +20,18 @@ Sur Vercel, si aucun stockage équivalent n'est configuré, ces fonctions échou
 ## Variable d'environnement
 
 `ADMIN_EMAIL` est utilisée pour limiter l'accès administrateur quand le mécanisme d'authentification attendu fournit l'identité de l'utilisateur.
+
+## Vercel : stockage persistant pour l'admin
+
+Les images modifiables, le catalogue produit et le bouton de maintenance utilisent **Vercel Blob** lorsque le site est déployé sur Vercel.
+
+1. Dans Vercel, ouvrir le projet > **Storage** > **Create Database / Blob**.
+2. Créer un **Blob Store** et le connecter au projet Reina Beauty.
+3. Vérifier que Vercel a ajouté `BLOB_READ_WRITE_TOKEN` aux variables d'environnement du projet.
+4. Redéployer la Production.
+
+Les images sélectionnées depuis l'administration sont redimensionnées dans le navigateur (dimension maximale 1800 px) et converties en WebP à 82% avant l'upload. Cela réduit le poids, la bande passante et le temps de chargement.
+
+Les variables d'authentification admin restent :
+- `ADMIN_PASSWORD`
+- `ADMIN_SESSION_SECRET`

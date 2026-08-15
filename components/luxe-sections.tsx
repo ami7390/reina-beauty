@@ -1,5 +1,7 @@
 "use client";
 
+import { ManagedImage } from "@/components/managed-image";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { ArrowRight, CheckCircle2, ChevronDown, Leaf, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { useState } from "react";
@@ -105,10 +107,10 @@ export function LuxeSections() {
           <div className="lg:col-span-3">
             <div className="relative aspect-[4/3] overflow-hidden rounded-3xl border-4 border-white shadow-2xl">
               {/* eslint-disable-next-line @next/next/no-img-element */}
-              <img src="/images/coiffures/locks/reina-microlocks-clean.png" alt="Micro Locks naturelles Reina Beauty" className="absolute inset-0 h-full w-full object-cover" />
+              <ManagedImage src="/images/coiffures/locks/reina-microlocks-clean.png" alt="Micro Locks naturelles Reina Beauty" className="absolute inset-0 h-full w-full object-cover" />
               <div className="absolute inset-0 overflow-hidden" style={{ clipPath: `inset(0 ${100 - comparison}% 0 0)` }}>
                 {/* eslint-disable-next-line @next/next/no-img-element */}
-                <img src="/images/coiffures/locks/reina-microlocks-color-clean.png" alt="Micro Locks colorées Reina Beauty" className="absolute inset-0 h-full w-full object-cover" />
+                <ManagedImage src="/images/coiffures/locks/reina-microlocks-color-clean.png" alt="Micro Locks colorées Reina Beauty" className="absolute inset-0 h-full w-full object-cover" />
               </div>
               <div className="absolute inset-y-0 w-0.5 bg-white shadow-xl" style={{ left: `${comparison}%` }} />
               <span className="absolute left-4 top-4 rounded-full bg-white/90 px-3 py-1 text-[10px] font-bold uppercase">Colorées</span>

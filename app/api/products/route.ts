@@ -1,8 +1,13 @@
-import { NextResponse } from "next/server";
-import { ensureProductsTable } from "@/lib/catalog-products";
+import { NextResponse } from 'next/server';
+import { listCatalogProducts } from '@/lib/catalog-products';
+
+export const dynamic = 'force-dynamic';
 
 export async function GET() {
-  const db = await ensureProductsTable();
-  const result = await db.prepare("SELECT id, title, category, description, price, image_url, badge FROM catalog_products WHERE published=1 ORDER BY created_at DESC").all();
-  return NextResponse.json({ products: result.results });
+  try {
+    const products = await listCatalogProducts(true);
+    return NextResponse.json({ products: products.map(({ id,title,category,description,price,image_url,badge }) => ({ id,title,category,description,price,image_url,badge })) });
+  } catch {
+    return NextResponse.json({ products: [] });
+  }
 }

@@ -1,5 +1,7 @@
 "use client";
 
+import { ManagedImage } from "@/components/managed-image";
+
 import { AnimatePresence, motion } from "framer-motion";
 import { Calendar, CheckCircle2, Clock3, Coffee, Search, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { useMemo, useState } from "react";
@@ -70,7 +72,7 @@ export default function PrestationsPage() {
               {filtered.map((service) => <motion.article layout initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .94 }} key={service.id} className="group flex flex-col overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:shadow-xl">
                 <div className="relative h-56 overflow-hidden">
                   {/* eslint-disable-next-line @next/next/no-img-element */}
-                  <img src={service.image} alt={service.title} className={`h-full w-full transition duration-700 group-hover:scale-105 ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />
+                  <ManagedImage src={service.image} alt={service.title} className={`h-full w-full transition duration-700 group-hover:scale-105 ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />
                   {service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}
                 </div>
                 <div className="flex flex-1 flex-col p-7">

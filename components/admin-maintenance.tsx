@@ -29,9 +29,9 @@ export function AdminMaintenance() {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ enabled: !enabled }),
       });
-      if (!response.ok) throw new Error("La modification n’a pas pu être enregistrée.");
-      const data = await response.json() as { enabled: boolean };
-      setEnabled(data.enabled);
+      const data = await response.json() as { enabled?: boolean; error?: string };
+      if (!response.ok) throw new Error(data.error || "La modification n’a pas pu être enregistrée.");
+      setEnabled(Boolean(data.enabled));
     } catch (reason) {
       setError(reason instanceof Error ? reason.message : "Une erreur est survenue.");
     } finally {
