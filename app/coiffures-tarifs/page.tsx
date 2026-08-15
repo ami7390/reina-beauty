@@ -71,25 +71,56 @@ export default function PrestationsPage() {
             <span className="sr-only">Rechercher une prestation</span>
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher : locks, miel, henné…" className="w-full rounded-full border border-luxury-line bg-luxury-bg py-3 pl-11 pr-4 text-xs outline-none focus:border-luxury-wine" />
           </label>
-          <div className="flex flex-col gap-2 lg:items-end">
-            <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-end">
-              {sections.map(([id, label]) => <button key={id} type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className={`shrink-0 rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider transition ${section === id ? "bg-luxury-wine text-white shadow-md" : "bg-luxury-bg text-luxury-muted hover:bg-luxury-champagne"}`}>{label}</button>)}
-            </div>
-            {section !== "all" && (subcategories[section]?.length ?? 0) > 1 && <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-end">
-              <button type="button" onClick={() => setSubcategory("all")} className={`shrink-0 rounded-full border px-3 py-2 text-[9px] font-bold uppercase tracking-wider transition ${subcategory === "all" ? "border-luxury-pink bg-luxury-champagne text-luxury-wine" : "border-luxury-line bg-white text-luxury-muted"}`}>Tout {section === "soins" ? "les soins" : "voir"}</button>
-              {subcategories[section].map(([id, label]) => <button key={id} type="button" onClick={() => setSubcategory(id)} className={`shrink-0 rounded-full border px-3 py-2 text-[9px] font-bold uppercase tracking-wider transition ${subcategory === id ? "border-luxury-pink bg-luxury-champagne text-luxury-wine" : "border-luxury-line bg-white text-luxury-muted"}`}>{label}</button>)}
-            </div>}
-          </div>
+          <nav className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-end" aria-label="Catégories de prestations">
+            {sections.map(([id, label]) => <button key={id} type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className={`shrink-0 rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider transition ${section === id ? "bg-luxury-wine text-white shadow-md" : "bg-luxury-bg text-luxury-muted hover:bg-luxury-champagne"}`}>{label}</button>)}
+          </nav>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
-        {filtered.length === 0 ? <div className="rounded-3xl border border-luxury-line bg-white px-6 py-20 text-center"><p className="text-sm text-luxury-muted">Aucune prestation ne correspond à « {query} ».</p><button type="button" onClick={reset} className="mt-5 text-xs font-bold uppercase text-luxury-wine underline">Réinitialiser</button></div> :
+        <div className="mb-12">
+          <p className="text-center text-[10px] font-bold uppercase tracking-[.22em] text-luxury-pink">Explorer nos univers</p>
+          <h2 className="mt-2 text-center font-serif text-3xl font-bold text-luxury-wine">Choisissez votre catégorie</h2>
+          <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-6 text-luxury-muted">Chaque univers possède son propre espace. Sélectionnez ensuite la spécialité qui correspond à votre besoin.</p>
+        </div>
+        <div className="grid gap-6 lg:grid-cols-2">
+          {sections.filter(([id]) => id !== "all").map(([id, label]) => {
+            const descriptions: Record<string, string> = {
+              coiffure: "Créations, entretien et coiffures protectrices adaptées à votre style.",
+              soins: "Rituels ciblés pour la santé des cheveux et l’éclat du visage.",
+              couleur: "Colorations et transformations réalisées avec diagnostic préalable.",
+              beaute: "Finitions beauté pour compléter votre mise en valeur.",
+            };
+            return <article key={id} className={`rounded-[2rem] border p-7 transition sm:p-9 ${section === id ? "border-luxury-pink bg-luxury-champagne/40 shadow-lg" : "border-luxury-line bg-white shadow-sm hover:shadow-md"}`}>
+              <button type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className="w-full text-left">
+                <span className="text-[9px] font-bold uppercase tracking-[.2em] text-luxury-pink">Univers Reina Beauty</span>
+                <h3 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">{label}</h3>
+                <p className="mt-3 max-w-xl text-xs leading-6 text-luxury-muted">{descriptions[id]}</p>
+              </button>
+              <div className="mt-6 border-t border-luxury-line pt-5">
+                <p className="mb-3 text-[9px] font-bold uppercase tracking-[.18em] text-luxury-muted">Sous-catégories</p>
+                <div className="flex flex-wrap gap-3">
+                  {(subcategories[id] ?? []).map(([subId, subLabel]) => <button key={subId} type="button" onClick={() => { setSection(id); setSubcategory(subId); }} className={`rounded-2xl border px-4 py-3 text-[10px] font-bold uppercase tracking-wider transition ${section === id && subcategory === subId ? "border-luxury-wine bg-luxury-wine text-white" : "border-luxury-line bg-luxury-bg text-luxury-wine hover:border-luxury-pink hover:bg-luxury-champagne"}`}>{subLabel}</button>)}
+                </div>
+              </div>
+            </article>;
+          })}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pt-16 lg:px-8">
+        <div className="mb-8 flex flex-col gap-3 border-b border-luxury-line pb-6 sm:flex-row sm:items-end sm:justify-between">
+          <div>
+            <p className="text-[9px] font-bold uppercase tracking-[.2em] text-luxury-pink">Prestations disponibles</p>
+            <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">{sections.find(([id]) => id === section)?.[1] ?? "Toutes les prestations"}{subcategory !== "all" ? ` · ${Object.values(subcategories).flat().find(([id]) => id === subcategory)?.[1] ?? ""}` : ""}</h2>
+          </div>
+          {(section !== "all" || subcategory !== "all" || query) && <button type="button" onClick={reset} className="text-[10px] font-bold uppercase tracking-wider text-luxury-wine underline underline-offset-4">Voir toutes les prestations</button>}
+        </div>
+        {filtered.length === 0 ? <div className="rounded-3xl border border-luxury-line bg-white px-6 py-20 text-center"><p className="text-sm text-luxury-muted">Aucune prestation ne correspond à votre sélection.</p><button type="button" onClick={reset} className="mt-5 text-xs font-bold uppercase text-luxury-wine underline">Réinitialiser</button></div> :
           <motion.div layout className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
             <AnimatePresence mode="popLayout">
               {filtered.map((service) => <motion.article layout initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .94 }} key={service.id} className="group flex flex-col overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:shadow-xl">
                 <div className="relative h-56 overflow-hidden">
-                  {/* eslint-disable-next-line @next/next/no-img-element */}
                   <ManagedImage src={service.image} alt={service.title} className={`h-full w-full transition duration-700 group-hover:scale-105 ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />
                   {service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}
                 </div>
