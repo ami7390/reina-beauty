@@ -76,71 +76,57 @@ export default function PrestationsPage() {
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
-        <div className="overflow-hidden rounded-[2rem] border border-luxury-line bg-white shadow-xl shadow-black/5">
-          <div className="border-b border-luxury-line bg-gradient-to-r from-luxury-bg via-white to-luxury-bg px-6 py-7 text-center sm:px-9">
-            <p className="text-[9px] font-bold uppercase tracking-[.24em] text-luxury-pink">Navigation rapide</p>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">Filtrer nos prestations</h2>
-            <p className="mx-auto mt-2 max-w-2xl text-xs leading-6 text-luxury-muted">Choisissez une catégorie, puis une sous-catégorie pour afficher uniquement les prestations qui vous intéressent.</p>
-            <button type="button" onClick={reset} className={`mt-5 rounded-full border px-5 py-2.5 text-[10px] font-bold uppercase tracking-wider transition ${section === "all" && subcategory === "all" ? "border-luxury-wine bg-luxury-wine text-white" : "border-luxury-line bg-white text-luxury-wine hover:border-luxury-pink"}`}>Toutes les prestations</button>
-          </div>
+        <div className="grid gap-8 lg:grid-cols-[230px_minmax(0,1fr)] lg:items-start">
+          <aside className="rounded-3xl border border-luxury-line bg-white p-4 shadow-lg shadow-black/5 lg:sticky lg:top-40" aria-label="Filtrer les prestations">
+            <button type="button" onClick={reset} className={`w-full rounded-2xl px-4 py-3 text-left text-xs font-bold transition ${section === "all" && subcategory === "all" ? "bg-luxury-wine text-white" : "text-luxury-wine hover:bg-luxury-bg"}`}>Toutes</button>
 
-          <div className="grid divide-y divide-luxury-line md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
             {sections.filter(([id]) => id !== "all").map(([id, label]) => (
-              <div key={id} className={`p-6 sm:p-7 ${section === id ? "bg-luxury-champagne/35" : "bg-white"}`}>
-                <button type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className="group flex w-full items-center justify-between gap-3 text-left">
-                  <div>
-                    <span className="text-[8px] font-bold uppercase tracking-[.2em] text-luxury-pink">Catégorie</span>
-                    <h3 className="mt-1 font-serif text-2xl font-bold text-luxury-wine transition group-hover:text-luxury-pink">{label}</h3>
-                  </div>
-                  <span className={`flex size-7 shrink-0 items-center justify-center rounded-full border text-xs transition ${section === id && subcategory === "all" ? "border-luxury-wine bg-luxury-wine text-white" : "border-luxury-line text-luxury-muted group-hover:border-luxury-pink"}`}>✓</span>
-                </button>
-
-                <div className="mt-5 border-t border-luxury-line pt-4">
-                  <p className="mb-3 text-[8px] font-bold uppercase tracking-[.18em] text-luxury-muted">Sous-catégories</p>
-                  <div className="flex flex-wrap gap-2">
-                    {(subcategories[id] ?? []).map(([subId, subLabel]) => (
-                      <button key={subId} type="button" onClick={() => { setSection(id); setSubcategory(subId); }} className={`rounded-full border px-3.5 py-2 text-[9px] font-bold uppercase tracking-wider transition ${section === id && subcategory === subId ? "border-luxury-wine bg-luxury-wine text-white shadow-sm" : "border-luxury-line bg-luxury-bg text-luxury-wine hover:border-luxury-pink hover:bg-luxury-champagne"}`}>{subLabel}</button>
-                    ))}
-                  </div>
+              <div key={id} className="mt-2 border-t border-luxury-line pt-2 first:border-t-0 first:pt-0">
+                <button type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className={`w-full rounded-2xl px-4 py-3 text-left font-serif text-lg font-bold transition ${section === id && subcategory === "all" ? "bg-luxury-champagne text-luxury-wine" : "text-luxury-wine hover:bg-luxury-bg"}`}>{label}</button>
+                <div className="ml-3 border-l border-luxury-line pl-3">
+                  {(subcategories[id] ?? []).map(([subId, subLabel]) => (
+                    <button key={subId} type="button" onClick={() => { setSection(id); setSubcategory(subId); }} className={`mt-1 block w-full rounded-xl px-3 py-2 text-left text-[10px] font-semibold transition ${section === id && subcategory === subId ? "bg-luxury-wine text-white" : "text-luxury-muted hover:bg-luxury-bg hover:text-luxury-wine"}`}>{subLabel}</button>
+                  ))}
                 </div>
               </div>
             ))}
-          </div>
-        </div>
-      </section>
+          </aside>
 
-      <section className="mx-auto max-w-7xl px-5 pt-16 lg:px-8">
-        <div className="mb-8 flex flex-col gap-3 border-b border-luxury-line pb-6 sm:flex-row sm:items-end sm:justify-between">
           <div>
-            <p className="text-[9px] font-bold uppercase tracking-[.2em] text-luxury-pink">Prestations disponibles</p>
-            <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">{sections.find(([id]) => id === section)?.[1] ?? "Toutes les prestations"}{subcategory !== "all" ? ` · ${Object.values(subcategories).flat().find(([id]) => id === subcategory)?.[1] ?? ""}` : ""}</h2>
-          </div>
-          {(section !== "all" || subcategory !== "all" || query) && <button type="button" onClick={reset} className="text-[10px] font-bold uppercase tracking-wider text-luxury-wine underline underline-offset-4">Voir toutes les prestations</button>}
-        </div>
-        {filtered.length === 0 ? <div className="rounded-3xl border border-luxury-line bg-white px-6 py-20 text-center"><p className="text-sm text-luxury-muted">Aucune prestation ne correspond à votre sélection.</p><button type="button" onClick={reset} className="mt-5 text-xs font-bold uppercase text-luxury-wine underline">Réinitialiser</button></div> :
-          <motion.div layout className="grid gap-7 md:grid-cols-2 lg:grid-cols-3">
-            <AnimatePresence mode="popLayout">
-              {filtered.map((service) => <motion.article layout initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .94 }} key={service.id} className="group flex flex-col overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:shadow-xl">
-                <div className="relative h-56 overflow-hidden">
-                  <ManagedImage src={service.image} alt={service.title} className={`h-full w-full transition duration-700 group-hover:scale-105 ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />
-                  {service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}
-                </div>
-                <div className="flex flex-1 flex-col p-7">
-                  <h2 className="font-serif text-2xl font-bold">{service.title}</h2>
-                  <p className="mt-1 text-xs font-semibold text-luxury-pink">{service.subtitle}</p>
-                  <p className="mt-4 flex-1 text-xs leading-6 text-luxury-muted">{service.description}</p>
-                  <div className="mt-6 border-t border-luxury-line pt-5">
-                    <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-luxury-muted"><Clock3 className="size-3.5" /> Durée indicative : {service.duration}</p>
-                    <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-luxury-bg px-4 py-3">
-                      <span className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-luxury-muted"><CircleDollarSign className="size-4 text-luxury-pink" /> Plage tarifaire</span>
-                      <strong className="text-right text-xs text-luxury-wine">{service.price}</strong>
+            <div className="mb-8 flex flex-col gap-3 border-b border-luxury-line pb-6 sm:flex-row sm:items-end sm:justify-between">
+              <div>
+                <p className="text-[9px] font-bold uppercase tracking-[.2em] text-luxury-pink">Prestations disponibles</p>
+                <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">{sections.find(([id]) => id === section)?.[1] ?? "Toutes les prestations"}{subcategory !== "all" ? ` · ${Object.values(subcategories).flat().find(([id]) => id === subcategory)?.[1] ?? ""}` : ""}</h2>
+              </div>
+              {(section !== "all" || subcategory !== "all" || query) && <button type="button" onClick={reset} className="text-[10px] font-bold uppercase tracking-wider text-luxury-wine underline underline-offset-4">Voir tout</button>}
+            </div>
+
+            {filtered.length === 0 ? <div className="rounded-3xl border border-luxury-line bg-white px-6 py-20 text-center"><p className="text-sm text-luxury-muted">Aucune prestation ne correspond à votre sélection.</p><button type="button" onClick={reset} className="mt-5 text-xs font-bold uppercase text-luxury-wine underline">Réinitialiser</button></div> :
+              <motion.div layout className="grid gap-7 md:grid-cols-2 xl:grid-cols-3">
+                <AnimatePresence mode="popLayout">
+                  {filtered.map((service) => <motion.article layout initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .94 }} key={service.id} className="group flex flex-col overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:shadow-xl">
+                    <div className="relative h-56 overflow-hidden">
+                      <ManagedImage src={service.image} alt={service.title} className={`h-full w-full transition duration-700 group-hover:scale-105 ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />
+                      {service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}
                     </div>
-                    <a href={`https://wa.me/22371989895?text=${encodeURIComponent(`Bonjour Reina Beauty, je souhaite réserver la prestation : ${service.title}. Pouvez-vous me confirmer le tarif selon mes besoins ?`)}`} target="_blank" rel="noreferrer" className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-luxury-line bg-luxury-bg px-5 py-3 text-xs font-bold uppercase tracking-wider text-luxury-wine transition hover:bg-luxury-wine hover:text-white"><Calendar className="size-4" /> Réserver cette prestation</a>
-                  </div>
-                </div>
-              </motion.article>)}
-            </AnimatePresence>
-          </motion.div>}
+                    <div className="flex flex-1 flex-col p-7">
+                      <h2 className="font-serif text-2xl font-bold">{service.title}</h2>
+                      <p className="mt-1 text-xs font-semibold text-luxury-pink">{service.subtitle}</p>
+                      <p className="mt-4 flex-1 text-xs leading-6 text-luxury-muted">{service.description}</p>
+                      <div className="mt-6 border-t border-luxury-line pt-5">
+                        <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-luxury-muted"><Clock3 className="size-3.5" /> Durée indicative : {service.duration}</p>
+                        <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-luxury-bg px-4 py-3">
+                          <span className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-luxury-muted"><CircleDollarSign className="size-4 text-luxury-pink" /> Plage tarifaire</span>
+                          <strong className="text-right text-xs text-luxury-wine">{service.price}</strong>
+                        </div>
+                        <a href={`https://wa.me/22371989895?text=${encodeURIComponent(`Bonjour Reina Beauty, je souhaite réserver la prestation : ${service.title}. Pouvez-vous me confirmer le tarif selon mes besoins ?`)}`} target="_blank" rel="noreferrer" className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-luxury-line bg-luxury-bg px-5 py-3 text-xs font-bold uppercase tracking-wider text-luxury-wine transition hover:bg-luxury-wine hover:text-white"><Calendar className="size-4" /> Réserver cette prestation</a>
+                      </div>
+                    </div>
+                  </motion.article>)}
+                </AnimatePresence>
+              </motion.div>}
+          </div>
+        </div>
       </section>
 
       <section className="mx-auto max-w-5xl px-5 pt-20 lg:px-8">
