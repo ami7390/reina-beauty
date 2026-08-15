@@ -1,0 +1,41 @@
+interface D1Result<T = Record<string, unknown>> {
+  results: T[];
+  success?: boolean;
+  meta?: Record<string, unknown>;
+}
+
+interface D1PreparedStatement {
+  bind(...values: unknown[]): D1PreparedStatement;
+  run<T = Record<string, unknown>>(): Promise<D1Result<T>>;
+  all<T = Record<string, unknown>>(): Promise<D1Result<T>>;
+  first<T = Record<string, unknown>>(): Promise<T | null>;
+}
+
+interface D1Database {
+  prepare(query: string): D1PreparedStatement;
+  batch<T = Record<string, unknown>>(statements: D1PreparedStatement[]): Promise<D1Result<T>[]>;
+}
+
+interface R2ObjectBody {
+  body: ReadableStream<Uint8Array> | null;
+  httpEtag?: string;
+  httpMetadata?: { contentType?: string; cacheControl?: string };
+}
+
+interface R2Bucket {
+  get(key: string): Promise<R2ObjectBody | null>;
+  put(
+    key: string,
+    value: ReadableStream | ArrayBuffer | ArrayBufferView | Blob | string,
+    options?: { httpMetadata?: { contentType?: string; cacheControl?: string } },
+  ): Promise<unknown>;
+}
+
+declare module "cloudflare:workers" {
+  export const env: {
+    DB?: D1Database;
+    BUCKET?: R2Bucket;
+    ASSETS?: unknown;
+    IMAGES?: unknown;
+  };
+}

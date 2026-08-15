@@ -1,0 +1,29 @@
+@import "tailwindcss";
+
+:root { --background: #fff5f7; --foreground: #1c1917; }
+@theme inline {
+  --color-luxury-bg: #fff5f7;
+  --color-luxury-text: #1c1917;
+  --color-luxury-deep: #1c1917;
+  --color-luxury-wine: #d31034;
+  --color-luxury-footer: #9e0b25;
+  --color-luxury-champagne: #fde8ed;
+  --color-luxury-academy: #fde8ed;
+  --color-luxury-line: #f3d2da;
+  --color-luxury-muted: #6b7280;
+  --color-luxury-pink: #e63956;
+  --font-sans: var(--font-inter);
+  --font-serif: var(--font-cormorant);
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--background); color: var(--foreground); font-family: var(--font-inter), sans-serif; }
+button, a { -webkit-tap-highlight-color: transparent; }
+.luxury-nav { color: #52413a; transition: color .2s ease; }
+.luxury-nav:hover { color: #d31034; }
+.luxury-badge { display: inline-flex; align-items: center; gap: .5rem; border: 1px solid rgba(230,57,86,.25); border-radius: 999px; background: #fde8ed; padding: .45rem .8rem; color: #d31034; font-size: .65rem; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; }
+.booking-link { display: flex; min-height: 3.5rem; align-items: center; justify-content: center; gap: .75rem; border-radius: .8rem; padding: .8rem 1.25rem; font-size: .75rem; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; box-shadow: 0 8px 20px rgba(0,0,0,.12); transition: transform .2s ease; }
+.booking-link:hover { transform: translateY(-2px); }
+.home-cta { display: inline-flex; min-height: 3.5rem; align-items: center; justify-content: center; gap: .5rem; border-radius: 999px; padding: .8rem 1.6rem; font-size: .72rem; font-weight: 800; letter-spacing: .07em; text-transform: uppercase; transition: .2s ease; }
+.contact-orb { position: absolute; right: -12rem; top: -10rem; width: 35rem; height: 35rem; border-radius: 999px; background: rgba(243,206,178,.09); filter: blur(20px); }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } *, *::before, *::after { animation-duration: .01ms !important; transition-duration: .01ms !important; } }
