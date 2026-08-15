@@ -71,40 +71,41 @@ export default function PrestationsPage() {
             <span className="sr-only">Rechercher une prestation</span>
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher : locks, miel, henné…" className="w-full rounded-full border border-luxury-line bg-luxury-bg py-3 pl-11 pr-4 text-xs outline-none focus:border-luxury-wine" />
           </label>
-          <nav className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-end" aria-label="Catégories de prestations">
-            {sections.map(([id, label]) => <button key={id} type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className={`shrink-0 rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider transition ${section === id ? "bg-luxury-wine text-white shadow-md" : "bg-luxury-bg text-luxury-muted hover:bg-luxury-champagne"}`}>{label}</button>)}
-          </nav>
+          <div className="text-[10px] font-semibold uppercase tracking-[.16em] text-luxury-muted">Recherche rapide des prestations</div>
         </div>
       </section>
 
       <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
-        <div className="mb-12">
-          <p className="text-center text-[10px] font-bold uppercase tracking-[.22em] text-luxury-pink">Explorer nos univers</p>
-          <h2 className="mt-2 text-center font-serif text-3xl font-bold text-luxury-wine">Choisissez votre catégorie</h2>
-          <p className="mx-auto mt-3 max-w-2xl text-center text-xs leading-6 text-luxury-muted">Chaque univers possède son propre espace. Sélectionnez ensuite la spécialité qui correspond à votre besoin.</p>
-        </div>
-        <div className="grid gap-6 lg:grid-cols-2">
-          {sections.filter(([id]) => id !== "all").map(([id, label]) => {
-            const descriptions: Record<string, string> = {
-              coiffure: "Créations, entretien et coiffures protectrices adaptées à votre style.",
-              soins: "Rituels ciblés pour la santé des cheveux et l’éclat du visage.",
-              couleur: "Colorations et transformations réalisées avec diagnostic préalable.",
-              beaute: "Finitions beauté pour compléter votre mise en valeur.",
-            };
-            return <article key={id} className={`rounded-[2rem] border p-7 transition sm:p-9 ${section === id ? "border-luxury-pink bg-luxury-champagne/40 shadow-lg" : "border-luxury-line bg-white shadow-sm hover:shadow-md"}`}>
-              <button type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className="w-full text-left">
-                <span className="text-[9px] font-bold uppercase tracking-[.2em] text-luxury-pink">Univers Reina Beauty</span>
-                <h3 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">{label}</h3>
-                <p className="mt-3 max-w-xl text-xs leading-6 text-luxury-muted">{descriptions[id]}</p>
-              </button>
-              <div className="mt-6 border-t border-luxury-line pt-5">
-                <p className="mb-3 text-[9px] font-bold uppercase tracking-[.18em] text-luxury-muted">Sous-catégories</p>
-                <div className="flex flex-wrap gap-3">
-                  {(subcategories[id] ?? []).map(([subId, subLabel]) => <button key={subId} type="button" onClick={() => { setSection(id); setSubcategory(subId); }} className={`rounded-2xl border px-4 py-3 text-[10px] font-bold uppercase tracking-wider transition ${section === id && subcategory === subId ? "border-luxury-wine bg-luxury-wine text-white" : "border-luxury-line bg-luxury-bg text-luxury-wine hover:border-luxury-pink hover:bg-luxury-champagne"}`}>{subLabel}</button>)}
+        <div className="overflow-hidden rounded-[2rem] border border-luxury-line bg-white shadow-xl shadow-black/5">
+          <div className="border-b border-luxury-line bg-gradient-to-r from-luxury-bg via-white to-luxury-bg px-6 py-7 text-center sm:px-9">
+            <p className="text-[9px] font-bold uppercase tracking-[.24em] text-luxury-pink">Navigation rapide</p>
+            <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">Filtrer nos prestations</h2>
+            <p className="mx-auto mt-2 max-w-2xl text-xs leading-6 text-luxury-muted">Choisissez une catégorie, puis une sous-catégorie pour afficher uniquement les prestations qui vous intéressent.</p>
+            <button type="button" onClick={reset} className={`mt-5 rounded-full border px-5 py-2.5 text-[10px] font-bold uppercase tracking-wider transition ${section === "all" && subcategory === "all" ? "border-luxury-wine bg-luxury-wine text-white" : "border-luxury-line bg-white text-luxury-wine hover:border-luxury-pink"}`}>Toutes les prestations</button>
+          </div>
+
+          <div className="grid divide-y divide-luxury-line md:grid-cols-2 md:divide-x md:divide-y-0 xl:grid-cols-4">
+            {sections.filter(([id]) => id !== "all").map(([id, label]) => (
+              <div key={id} className={`p-6 sm:p-7 ${section === id ? "bg-luxury-champagne/35" : "bg-white"}`}>
+                <button type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className="group flex w-full items-center justify-between gap-3 text-left">
+                  <div>
+                    <span className="text-[8px] font-bold uppercase tracking-[.2em] text-luxury-pink">Catégorie</span>
+                    <h3 className="mt-1 font-serif text-2xl font-bold text-luxury-wine transition group-hover:text-luxury-pink">{label}</h3>
+                  </div>
+                  <span className={`flex size-7 shrink-0 items-center justify-center rounded-full border text-xs transition ${section === id && subcategory === "all" ? "border-luxury-wine bg-luxury-wine text-white" : "border-luxury-line text-luxury-muted group-hover:border-luxury-pink"}`}>✓</span>
+                </button>
+
+                <div className="mt-5 border-t border-luxury-line pt-4">
+                  <p className="mb-3 text-[8px] font-bold uppercase tracking-[.18em] text-luxury-muted">Sous-catégories</p>
+                  <div className="flex flex-wrap gap-2">
+                    {(subcategories[id] ?? []).map(([subId, subLabel]) => (
+                      <button key={subId} type="button" onClick={() => { setSection(id); setSubcategory(subId); }} className={`rounded-full border px-3.5 py-2 text-[9px] font-bold uppercase tracking-wider transition ${section === id && subcategory === subId ? "border-luxury-wine bg-luxury-wine text-white shadow-sm" : "border-luxury-line bg-luxury-bg text-luxury-wine hover:border-luxury-pink hover:bg-luxury-champagne"}`}>{subLabel}</button>
+                    ))}
+                  </div>
                 </div>
               </div>
-            </article>;
-          })}
+            ))}
+          </div>
         </div>
       </section>
 
