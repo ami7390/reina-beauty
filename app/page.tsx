@@ -34,7 +34,7 @@ const expertise = [
     title: "Gamme pousse & soins du visage",
     description:
       "Huiles, sérums et baumes pour la routine capillaire, complétés par un soin du visage au miel et aux poudres botaniques.",
-    href: "/soins-capillaires",
+    href: "/boutique",
     link: "Voir les soins capillaires",
   },
   {
@@ -232,8 +232,8 @@ export default function HomePage() {
               ))}
             </div>
             <div className="mt-9 flex flex-col gap-3 sm:flex-row">
-              <a href="/soins-capillaires" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-luxury-wine">Découvrir la gamme <ArrowRight className="size-4" /></a>
-              <a href="/soins-capillaires#diagnostic" className="inline-flex items-center justify-center rounded-full border border-white/25 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white">Trouver mon rituel</a>
+              <a href="/boutique" className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-luxury-wine">Découvrir la gamme <ArrowRight className="size-4" /></a>
+              <a href="/boutique#diagnostic" className="inline-flex items-center justify-center rounded-full border border-white/25 px-6 py-3.5 text-xs font-bold uppercase tracking-wider text-white">Trouver mon rituel</a>
             </div>
           </div>
         </div>

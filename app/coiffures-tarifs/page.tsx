@@ -3,35 +3,47 @@
 import { ManagedImage } from "@/components/managed-image";
 
 import { AnimatePresence, motion } from "framer-motion";
-import { Calendar, CheckCircle2, Clock3, Coffee, Search, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { Calendar, CheckCircle2, CircleDollarSign, Clock3, Coffee, Search, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { useMemo, useState } from "react";
 import { services } from "@/lib/reina-data";
 
-const categories = [
+const sections = [
   ["all", "Toutes"],
-  ["locks", "Micro Locks"],
-  ["tresses", "Tresses"],
+  ["coiffure", "Coiffures"],
   ["soins", "Soins"],
-  ["visage", "Visage"],
-  ["teinture", "Coloration"],
-  ["henne", "Henné"],
-  ["maquillage", "Maquillage"],
-  ["onglerie", "Manucure & pédicure"],
+  ["couleur", "Coloration"],
+  ["beaute", "Beauté"],
 ] as const;
 
+const subcategories: Record<string, readonly [string, string][]> = {
+  coiffure: [["locks", "Micro Locks"], ["tresses", "Tresses & coiffures protectrices"]],
+  soins: [["soins", "Cheveux"], ["visage", "Visage"]],
+  couleur: [["teinture", "Coloration"]],
+  beaute: [["henne", "Henné"], ["maquillage", "Maquillage"], ["onglerie", "Manucure & pédicure"]],
+};
+
+function serviceSection(category: string) {
+  if (["locks", "tresses"].includes(category)) return "coiffure";
+  if (["soins", "visage"].includes(category)) return "soins";
+  if (category === "teinture") return "couleur";
+  return "beaute";
+}
+
 export default function PrestationsPage() {
-  const [category, setCategory] = useState("all");
+  const [section, setSection] = useState("all");
+  const [subcategory, setSubcategory] = useState("all");
   const [query, setQuery] = useState("");
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase("fr");
     return services.filter((service) => {
-      const matchesCategory = category === "all" || service.category === category;
+      const matchesSection = section === "all" || serviceSection(service.category) === section;
+      const matchesSubcategory = subcategory === "all" || service.category === subcategory;
       const haystack = `${service.title} ${service.subtitle} ${service.description}`.toLocaleLowerCase("fr");
-      return matchesCategory && (!normalized || haystack.includes(normalized));
+      return matchesSection && matchesSubcategory && (!normalized || haystack.includes(normalized));
     });
-  }, [category, query]);
+  }, [section, subcategory, query]);
 
-  const reset = () => { setCategory("all"); setQuery(""); };
+  const reset = () => { setSection("all"); setSubcategory("all"); setQuery(""); };
 
   return (
     <main className="min-h-screen bg-luxury-bg pb-20">
@@ -39,7 +51,7 @@ export default function PrestationsPage() {
         <div className="mx-auto max-w-3xl text-center">
           <span className="luxury-badge"><Sparkles className="size-4" /> Expertise & haute précision</span>
           <h1 className="mt-5 font-serif text-5xl font-bold text-luxury-wine sm:text-6xl">Nos Prestations</h1>
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-luxury-muted">Découvrez toutes les expertises Reina Beauty dans un cadre intime exclusivement réservé aux femmes. Chaque rendez-vous est adapté à vos besoins.</p>
+          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-luxury-muted">Découvrez toutes les expertises Reina Beauty dans un cadre intime exclusivement réservé aux femmes. Chaque rendez-vous est adapté à vos besoins. Les tarifs indiqués sont des repères et sont confirmés selon la longueur, la densité et la prestation choisie.</p>
         </div>
       </section>
 
@@ -59,8 +71,14 @@ export default function PrestationsPage() {
             <span className="sr-only">Rechercher une prestation</span>
             <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher : locks, miel, henné…" className="w-full rounded-full border border-luxury-line bg-luxury-bg py-3 pl-11 pr-4 text-xs outline-none focus:border-luxury-wine" />
           </label>
-          <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-end">
-            {categories.map(([id, label]) => <button key={id} type="button" onClick={() => setCategory(id)} className={`shrink-0 rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider transition ${category === id ? "bg-luxury-wine text-white shadow-md" : "bg-luxury-bg text-luxury-muted hover:bg-luxury-champagne"}`}>{label}</button>)}
+          <div className="flex flex-col gap-2 lg:items-end">
+            <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-end">
+              {sections.map(([id, label]) => <button key={id} type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className={`shrink-0 rounded-full px-4 py-2.5 text-[10px] font-bold uppercase tracking-wider transition ${section === id ? "bg-luxury-wine text-white shadow-md" : "bg-luxury-bg text-luxury-muted hover:bg-luxury-champagne"}`}>{label}</button>)}
+            </div>
+            {section !== "all" && (subcategories[section]?.length ?? 0) > 1 && <div className="flex gap-2 overflow-x-auto pb-1 lg:flex-wrap lg:justify-end">
+              <button type="button" onClick={() => setSubcategory("all")} className={`shrink-0 rounded-full border px-3 py-2 text-[9px] font-bold uppercase tracking-wider transition ${subcategory === "all" ? "border-luxury-pink bg-luxury-champagne text-luxury-wine" : "border-luxury-line bg-white text-luxury-muted"}`}>Tout {section === "soins" ? "les soins" : "voir"}</button>
+              {subcategories[section].map(([id, label]) => <button key={id} type="button" onClick={() => setSubcategory(id)} className={`shrink-0 rounded-full border px-3 py-2 text-[9px] font-bold uppercase tracking-wider transition ${subcategory === id ? "border-luxury-pink bg-luxury-champagne text-luxury-wine" : "border-luxury-line bg-white text-luxury-muted"}`}>{label}</button>)}
+            </div>}
           </div>
         </div>
       </section>
@@ -81,7 +99,11 @@ export default function PrestationsPage() {
                   <p className="mt-4 flex-1 text-xs leading-6 text-luxury-muted">{service.description}</p>
                   <div className="mt-6 border-t border-luxury-line pt-5">
                     <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-luxury-muted"><Clock3 className="size-3.5" /> Durée indicative : {service.duration}</p>
-                    <a href={`https://wa.me/22371989895?text=${encodeURIComponent(`Bonjour Reina Beauty, je souhaite réserver la prestation : ${service.title}.`)}`} target="_blank" rel="noreferrer" className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-luxury-line bg-luxury-bg px-5 py-3 text-xs font-bold uppercase tracking-wider text-luxury-wine transition hover:bg-luxury-wine hover:text-white"><Calendar className="size-4" /> Réserver ce soin</a>
+                    <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-luxury-bg px-4 py-3">
+                      <span className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-luxury-muted"><CircleDollarSign className="size-4 text-luxury-pink" /> Plage tarifaire</span>
+                      <strong className="text-right text-xs text-luxury-wine">{service.price}</strong>
+                    </div>
+                    <a href={`https://wa.me/22371989895?text=${encodeURIComponent(`Bonjour Reina Beauty, je souhaite réserver la prestation : ${service.title}. Pouvez-vous me confirmer le tarif selon mes besoins ?`)}`} target="_blank" rel="noreferrer" className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-luxury-line bg-luxury-bg px-5 py-3 text-xs font-bold uppercase tracking-wider text-luxury-wine transition hover:bg-luxury-wine hover:text-white"><Calendar className="size-4" /> Réserver cette prestation</a>
                   </div>
                 </div>
               </motion.article>)}

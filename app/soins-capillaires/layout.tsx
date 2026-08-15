@@ -1,10 +1,8 @@
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "Soins Capillaires Naturels à Bamako | Reina Beauty",
-  description: "Produits capillaires, huiles, sérums, baumes naturels et soin du visage au miel et aux poudres botaniques.",
+  title: "Boutique Reina Beauty",
+  description: "Retrouvez la boutique Reina Beauty et commandez vos produits directement sur WhatsApp.",
 };
 
-export default function Layout({ children }: { children: React.ReactNode }) {
-  return children;
-}
+export default function Layout({ children }: { children: React.ReactNode }) { return children; }
