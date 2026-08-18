@@ -53,5 +53,18 @@ export default async function ServiceFamilyPage({ params }: { params: Promise<{ 
         </article>)}
       </div>
     </section>
+
+    {slug === "henne" && <section className="mx-auto max-w-7xl px-5 pt-16 lg:px-8">
+      <div className="mb-8 max-w-2xl">
+        <span className="text-[10px] font-bold uppercase tracking-[.2em] text-luxury-pink">Nos réalisations</span>
+        <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine sm:text-4xl">Quelques créations au henné</h2>
+        <p className="mt-3 text-sm leading-7 text-luxury-muted">Découvrez une sélection de motifs réalisés par Reina Beauty. Chaque création peut être adaptée selon l’occasion et le style souhaité.</p>
+      </div>
+      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+        {[1, 2, 3, 4].map((index) => <figure key={index} className="group overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm">
+          <ManagedImage src={`/images/prestations/henne/gallery/henne-realisation-${index}.webp`} alt={`Réalisation henné Reina Beauty ${index}`} className="aspect-[3/4] h-full w-full object-cover transition duration-500 group-hover:scale-105" />
+        </figure>)}
+      </div>
+    </section>}
   </main>;
 }
