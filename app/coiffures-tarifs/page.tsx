@@ -53,26 +53,26 @@ export default function PrestationsPage() {
   const reset = () => { setSection("all"); setSubcategory("all"); setQuery(""); };
 
   return <main className="min-h-screen bg-luxury-bg pb-20">
-    <section className="relative isolate overflow-hidden border-b border-luxury-line bg-gradient-to-br from-white via-[#fff9f7] to-[#f4e8ea] px-5 py-20 lg:px-8 lg:py-24">
-      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.2fr_.8fr]">
-        <div>
-          <span className="luxury-badge"><Sparkles className="size-4" /> Coiffure, soins & beauté</span>
-          <h1 className="mt-5 max-w-4xl font-serif text-5xl font-bold leading-[1.05] text-luxury-wine sm:text-6xl">Explorez nos univers beauté.</h1>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-luxury-muted">Cette page est votre point de départ. Choisissez une famille de prestations ci-dessous pour ouvrir sa page dédiée et découvrir toutes les options disponibles, les durées et les tarifs.</p>
+    <section className="relative isolate overflow-hidden border-b border-luxury-line bg-[#fffaf8] px-5 py-14 sm:py-16 lg:px-8 lg:py-20">
+      <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-luxury-champagne/30 blur-3xl" />
+      <div className="relative mx-auto max-w-7xl">
+        <div className="max-w-3xl">
+          <span className="luxury-badge"><Sparkles className="size-4" /> Reina Beauty · Bamako</span>
+          <h1 className="mt-5 font-serif text-4xl font-bold leading-[1.05] text-luxury-wine sm:text-5xl lg:text-6xl">Trouvez la prestation qui vous ressemble.</h1>
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-luxury-muted sm:text-base">Locks, tresses, soins capillaires, henné et autres rituels beauté : explorez nos univers, comparez les options et ouvrez chaque prestation pour découvrir ses détails.</p>
           <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#explorer" className="inline-flex items-center gap-2 rounded-full bg-luxury-wine px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-white shadow-md">Voir les univers <ArrowDown className="size-4" /></a>
-            <a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20conseil%20pour%20choisir%20ma%20prestation." target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-luxury-line bg-white px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-luxury-wine">Être conseillée</a>
+            <a href="#explorer" className="inline-flex items-center gap-2 rounded-full bg-luxury-wine px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-white shadow-md transition hover:-translate-y-0.5">Explorer les prestations <ArrowDown className="size-4" /></a>
+            <a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20conseil%20pour%20choisir%20ma%20prestation." target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-luxury-line bg-white px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-luxury-wine transition hover:border-luxury-wine">Demander conseil <ArrowRight className="size-4" /></a>
+          </div>
+          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-luxury-line/70 pt-5 text-[11px] font-semibold text-luxury-muted">
+            <span className="inline-flex items-center gap-2"><CheckCircle2 className="size-4 text-luxury-wine" /> Conseil personnalisé</span>
+            <span className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-luxury-wine" /> Prestations soignées</span>
+            <span className="inline-flex items-center gap-2"><Star className="size-4 text-luxury-wine" /> Réservation WhatsApp</span>
           </div>
         </div>
-        <div className="rounded-[2rem] border border-white/70 bg-white/75 p-7 shadow-xl backdrop-blur sm:p-9">
-          <p className="text-[10px] font-bold uppercase tracking-[.22em] text-luxury-pink">En 3 étapes</p>
-          <div className="mt-6 space-y-5">
-            {["Choisissez un univers", "Découvrez toutes ses variantes", "Réservez ou demandez votre devis"].map((item, index) => <div key={item} className="flex items-start gap-4"><span className="grid size-8 shrink-0 place-items-center rounded-full bg-luxury-wine text-xs font-bold text-white">{index + 1}</span><p className="pt-1 text-sm font-semibold text-luxury-text">{item}</p></div>)}
-          </div>
-        </div>
+        <a href="#explorer" aria-label="Continuer vers les prestations" className="mt-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[.18em] text-luxury-wine sm:mt-12">Découvrir la suite <ArrowDown className="size-4 animate-bounce" /></a>
       </div>
     </section>
-
     <section className="bg-luxury-wine px-5 py-6 text-white lg:px-8">
       <div className="mx-auto grid max-w-7xl gap-4 text-center sm:grid-cols-2 lg:grid-cols-4">
         <PrestigeItem icon={CheckCircle2}>Diagnostic personnalisé</PrestigeItem>

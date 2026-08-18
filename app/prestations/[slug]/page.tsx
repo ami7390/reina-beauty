@@ -37,10 +37,27 @@ export default async function ServiceFamilyPage({ params }: { params: Promise<{ 
     </section>
 
     <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
-      {slug === "henne" && <div className="mb-10 grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {[1, 2, 3, 4].map((index) => <figure key={index} className="overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm">
-          <ManagedImage src={`/images/prestations/henne/showcase/henne-${index}.webp`} alt={`Modèle henné artistique ${index}`} className="aspect-[3/4] h-full w-full object-cover" />
-        </figure>)}
+      {slug === "henne" && <div className="mb-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
+        {[
+          { image: 1, title: "Henné artistique — Mains", subtitle: "Motifs fins & élégants", description: "Composition personnalisée réalisée à la main pour sublimer les mains avec finesse." },
+          { image: 2, title: "Henné traditionnel", subtitle: "Inspiration florale", description: "Motifs inspirés des traditions, adaptés à votre style et à l’occasion." },
+          { image: 3, title: "Henné floral", subtitle: "Création sur mesure", description: "Fleurs, lignes et détails travaillés pour une décoration harmonieuse et unique." },
+          { image: 4, title: "Henné pieds & chevilles", subtitle: "Finition délicate", description: "Décoration raffinée des pieds et chevilles, pensée pour compléter votre mise en beauté." },
+        ].map((item) => <article key={item.image} className="group overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+          <div className="relative overflow-hidden">
+            <ManagedImage src={`/images/prestations/henne/showcase/henne-${item.image}.webp`} alt={item.title} className="aspect-[3/4] h-full w-full object-cover transition duration-700 group-hover:scale-105" />
+            <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">Art Reina</span>
+          </div>
+          <div className="p-5">
+            <h2 className="font-serif text-xl font-bold text-luxury-wine">{item.title}</h2>
+            <p className="mt-1 text-[11px] font-semibold text-luxury-pink">{item.subtitle}</p>
+            <p className="mt-3 text-xs leading-6 text-luxury-muted">{item.description}</p>
+            <div className="mt-4 border-t border-luxury-line pt-4">
+              <strong className="text-xs text-luxury-wine">Tarif sur devis</strong>
+              <a href={`https://wa.me/22371989895?text=${encodeURIComponent(`Bonjour Reina Beauty, je souhaite réserver : ${item.title}. Pouvez-vous me confirmer le tarif et la disponibilité ?`)}`} target="_blank" rel="noreferrer" className="mt-4 flex items-center justify-center gap-2 rounded-full bg-luxury-wine px-4 py-3 text-[9px] font-bold uppercase tracking-wider text-white"><Calendar className="size-4" /> Réserver</a>
+            </div>
+          </div>
+        </article>)}
       </div>}
       <div className="grid gap-7 md:grid-cols-2 xl:grid-cols-3">
         {items.map((service) => <article key={service.id} className="overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm">
