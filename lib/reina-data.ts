@@ -4,7 +4,7 @@ export const whatsapp = `https://wa.me/22371989895?text=${encodeURIComponent("Bo
 
 export type Service = {
   id: number;
-  category: "locks" | "tresses" | "soins" | "visage" | "teinture" | "henne" | "maquillage" | "onglerie";
+  category: "locks" | "tresses" | "twists" | "soins" | "visage" | "teinture" | "henne" | "maquillage" | "onglerie";
   title: string;
   subtitle: string;
   description: string;
@@ -21,6 +21,10 @@ export const services: readonly Service[] = [
   { id: 18, category: "locks", title: "Locks Traditionnelles — Création", subtitle: "Sections et départ personnalisés", description: "Création de locks traditionnelles avec choix de la taille, du sectionnement et de la méthode de départ selon vos cheveux.", duration: "Selon la longueur", price: "Tarif sur devis", image: "/images/coiffures/locks/reina-microlocks.png" },
   { id: 19, category: "locks", title: "Retwist & Entretien Locks", subtitle: "Repousses et finitions", description: "Entretien des racines, remise en forme et finitions pour préserver une apparence propre et harmonieuse.", duration: "Selon la repousse", price: "Tarif sur devis", image: "/images/coiffures/locks/reina-microlocks-color-clean.png" },
   { id: 20, category: "locks", title: "Instant Locks", subtitle: "Transformation plus immédiate", description: "Technique de création de locks avec travail au crochet, proposée après diagnostic de la texture et de l’état des cheveux.", duration: "Selon la longueur", price: "Tarif sur devis", image: "/images/coiffures/locks/reina-installation-locks-tiktok.webp" },
+
+  { id: 21, category: "twists", title: "Vanilles", subtitle: "Coiffure protectrice torsadée", description: "Des vanilles régulières et souples, réalisées selon la longueur, la densité et le rendu souhaité.", duration: "Selon la longueur", price: "Tarif sur devis", image: "/images/coiffures/twists/reina-vanilles.webp", highlight: "Protectrice" },
+  { id: 22, category: "twists", title: "Twist", subtitle: "Torsades naturelles", description: "Des twists travaillés avec soin pour un résultat net, léger et facile à porter au quotidien.", duration: "Selon la densité", price: "Tarif sur devis", image: "/images/coiffures/twists/reina-micro-twist.webp" },
+  { id: 23, category: "twists", title: "Micro Twist", subtitle: "Fines torsades longue tenue", description: "Des micro twists fins et réguliers pour un rendu élégant, léger et polyvalent.", duration: "Selon la longueur et la densité", price: "Tarif sur devis", image: "/images/coiffures/twists/reina-micro-twist.webp", highlight: "Fin & léger" },
   { id: 3, category: "tresses", title: "Nattes Artistiques", subtitle: "Créations protectrices", description: "Des nattes réalisées avec précision, adaptées au style, à la longueur et à l’occasion.", duration: "Selon le modèle", price: "Tarif sur devis", image: "/images/coiffures/nattes/reina-nattes-artistiques.webp", highlight: "Populaire" },
   { id: 10, category: "tresses", title: "Laïfou", subtitle: "Coiffure protectrice légère", description: "Une coiffure souple et élégante, travaillée selon la densité et la longueur de vos cheveux.", duration: "Selon la longueur", price: "Tarif sur devis", image: "/images/coiffures/laifou/reina-laifou-tiktok.webp" },
   { id: 11, category: "tresses", title: "Napi", subtitle: "Texture naturelle et volume", description: "Une mise en forme qui révèle la texture naturelle des cheveux avec un volume maîtrisé.", duration: "Selon la densité", price: "Tarif sur devis", image: "/images/coiffures/nappi/reina-nappi-tiktok.webp" },

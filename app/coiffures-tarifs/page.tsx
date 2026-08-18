@@ -15,7 +15,7 @@ const sections = [
 ] as const;
 
 const subcategories: Record<string, readonly [string, string][]> = {
-  coiffure: [["locks", "Locks"], ["tresses", "Tresses"]],
+  coiffure: [["locks", "Locks"], ["tresses", "Tresses"], ["twists-vanilles", "Twist & Vanilles"]],
   soins: [["soins-cheveux", "Cheveux"], ["soins-visage", "Visage"]],
   couleur: [["coloration", "Coloration"]],
   beaute: [["henne", "Henné"], ["maquillage", "Maquillage"], ["onglerie", "Manucure & pédicure"]],
@@ -24,6 +24,7 @@ const subcategories: Record<string, readonly [string, string][]> = {
 const families = [
   { id: "locks", section: "coiffure", title: "Locks", subtitle: "Micro Locks, Starter Locks, locks traditionnelles, retwist & Instant Locks", price: "À partir de 15 000 FCFA", image: "/images/coiffures/locks/reina-installation-locks-tiktok.webp", href: "/prestations/locks" },
   { id: "tresses", section: "coiffure", title: "Tresses & coiffures protectrices", subtitle: "Nattes artistiques, Laïfou, Napi et styles protecteurs", price: "Tarif sur devis", image: "/images/coiffures/nattes/reina-nattes-artistiques.webp", href: "/prestations/tresses" },
+  { id: "twists-vanilles", section: "coiffure", title: "Twist & Vanilles", subtitle: "Vanilles, Twist et Micro Twist", price: "Tarif sur devis", image: "/images/coiffures/twists/reina-vanilles.webp", href: "/prestations/twists-vanilles" },
   { id: "soins-cheveux", section: "soins", title: "Soins des cheveux", subtitle: "Nutrition, cuir chevelu et rituels capillaires", price: "Tarif sur devis", image: "/images/soins/capillaires/reina-bain-huiles.webp", href: "/prestations/soins-cheveux" },
   { id: "soins-visage", section: "soins", title: "Soins du visage", subtitle: "Nettoyage doux et éclat naturel", price: "Tarif sur devis", image: "/images/soins/visage/reina-soin-visage-tiktok.webp", href: "/prestations/soins-visage" },
   { id: "coloration", section: "couleur", title: "Coloration", subtitle: "Bordeaux, cuivré, miel, auburn et nuances personnalisées", price: "Tarif sur devis", image: "/images/coiffures/colorations/reina-coloration-bordeaux.webp", href: "/prestations/coloration" },
@@ -39,7 +40,11 @@ export default function PrestationsPage() {
 
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase("fr");
-    return families.filter((family) => {
+    const isDefaultView = section === "all" && subcategory === "all" && !normalized;
+    const source = isDefaultView
+      ? families.filter((family) => ["locks", "tresses", "twists-vanilles", "soins-cheveux"].includes(family.id))
+      : families;
+    return source.filter((family) => {
       const matchesSection = section === "all" || family.section === section;
       const matchesSubcategory = subcategory === "all" || family.id === subcategory;
       const haystack = `${family.title} ${family.subtitle}`.toLocaleLowerCase("fr");
@@ -100,7 +105,7 @@ export default function PrestationsPage() {
           </div>
 
           {filtered.length === 0 ? <div className="rounded-3xl border border-luxury-line bg-white px-6 py-20 text-center"><p className="text-sm text-luxury-muted">Aucun univers ne correspond à votre sélection.</p><button type="button" onClick={reset} className="mt-5 text-xs font-bold uppercase text-luxury-wine underline">Réinitialiser</button></div> :
-            <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+            <motion.div layout className="grid gap-6 md:grid-cols-2">
               {filtered.map((family) => <motion.article layout key={family.id} className="group overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
                 <Link href={family.href} className="block">
                   <div className="h-56 overflow-hidden"><ManagedImage src={family.image} alt={family.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /></div>
