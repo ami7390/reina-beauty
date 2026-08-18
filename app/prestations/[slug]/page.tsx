@@ -54,17 +54,37 @@ export default async function ServiceFamilyPage({ params }: { params: Promise<{ 
       </div>
     </section>
 
-    {slug === "henne" && <section className="mx-auto max-w-7xl px-5 pt-16 lg:px-8">
-      <div className="mb-8 max-w-2xl">
-        <span className="text-[10px] font-bold uppercase tracking-[.2em] text-luxury-pink">Nos réalisations</span>
-        <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine sm:text-4xl">Quelques créations au henné</h2>
-        <p className="mt-3 text-sm leading-7 text-luxury-muted">Découvrez une sélection de motifs réalisés par Reina Beauty. Chaque création peut être adaptée selon l’occasion et le style souhaité.</p>
-      </div>
-      <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
-        {[1, 2, 3, 4].map((index) => <figure key={index} className="group overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm">
-          <ManagedImage src={`/images/prestations/henne/gallery/henne-realisation-${index}.webp`} alt={`Réalisation henné Reina Beauty ${index}`} className="aspect-[3/4] h-full w-full object-cover transition duration-500 group-hover:scale-105" />
-        </figure>)}
-      </div>
-    </section>}
+    {slug === "henne" && <>
+      <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
+        <div className="mb-7 max-w-2xl">
+          <span className="text-[10px] font-bold uppercase tracking-[.2em] text-luxury-pink">Inspiration henné</span>
+          <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine sm:text-4xl">Des styles pour mains et pieds</h2>
+          <p className="mt-3 text-sm leading-7 text-luxury-muted">Ces visuels sont présentés au même niveau que nos prestations pour vous aider à choisir l’univers, la finesse et le placement qui vous ressemblent.</p>
+        </div>
+        <div className="grid grid-cols-2 gap-4 lg:grid-cols-4">
+          {[1, 2, 3, 4].map((index) => <figure key={index} className="overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm">
+            <ManagedImage src={`/images/prestations/henne/showcase/henne-${index}.webp`} alt={`Inspiration henné ${index}`} className="aspect-[3/4] h-full w-full object-cover" />
+          </figure>)}
+        </div>
+      </section>
+
+      <section className="mx-auto max-w-7xl px-5 pt-16 lg:px-8">
+        <div className="overflow-hidden rounded-[2rem] border border-luxury-line bg-white p-6 shadow-sm sm:p-8 lg:p-10">
+          <div className="grid items-center gap-8 lg:grid-cols-[1fr_1.1fr]">
+            <div>
+              <span className="text-[10px] font-bold uppercase tracking-[.2em] text-luxury-pink">Formation henné</span>
+              <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine sm:text-4xl">L'univers de nos apprenties</h2>
+              <p className="mt-4 text-sm leading-7 text-luxury-muted">Un aperçu illustratif de l'univers d'apprentissage : pratique, précision du geste et progression. Les visuels de cette section sont des images d'illustration et ne sont pas présentés comme des réalisations de nos élèves.</p>
+              <Link href="/formation" className="mt-6 inline-flex items-center justify-center rounded-full bg-luxury-wine px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-white">Découvrir nos formations</Link>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              {[1, 2].map((index) => <figure key={index} className="overflow-hidden rounded-3xl bg-luxury-bg">
+                <ManagedImage src={`/images/prestations/henne/apprenties-${index}.webp`} alt={`Illustration formation henné ${index}`} className="aspect-[4/5] h-full w-full object-cover" />
+              </figure>)}
+            </div>
+          </div>
+        </div>
+      </section>
+    </>}
   </main>;
 }
