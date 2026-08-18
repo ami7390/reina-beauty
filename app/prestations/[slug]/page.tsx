@@ -5,7 +5,7 @@ import { ManagedImage } from "@/components/managed-image";
 import { services } from "@/lib/reina-data";
 
 const families = {
-  locks: { category: "locks", title: "Locks, Twist & Vanilles", intro: "Découvrez nos créations et entretiens : Micro Locks, Starter Locks, retwist, Instant Locks, Twist, Micro Twist et Vanilles." },
+  locks: { category: "locks", title: "Locks, Twist & Vanilles", intro: "Découvrez nos créations et entretiens : Micro Locks, Dreadlocks, Sister Locks, Twist, Micro Twist et Vanilles." },
   tresses: { category: "tresses", title: "Tresses & coiffures protectrices", intro: "Nattes artistiques, Laïfou, Napi et autres coiffures protectrices réalisées selon votre style et vos cheveux." },
   "soins-cheveux": { category: "soins", title: "Soins des cheveux", intro: "Des rituels ciblés pour nourrir les longueurs, prendre soin du cuir chevelu et accompagner votre routine capillaire." },
   "soins-visage": { category: "visage", title: "Soins du visage", intro: "Des soins visage pensés pour nettoyer la peau en douceur et raviver naturellement son éclat." },
