@@ -53,23 +53,25 @@ export default function PrestationsPage() {
   const reset = () => { setSection("all"); setSubcategory("all"); setQuery(""); };
 
   return <main className="min-h-screen bg-luxury-bg pb-20">
-    <section className="relative overflow-hidden border-b border-luxury-line bg-white px-5 pb-10 pt-12 sm:pb-12 sm:pt-16 lg:px-8 lg:pt-20">
+    <section className="relative isolate overflow-hidden border-b border-luxury-line bg-luxury-wine px-5 pb-10 pt-12 sm:pb-12 sm:pt-16 lg:px-8 lg:pt-20">
+      <div aria-hidden="true" className="absolute inset-0 -z-20 bg-cover bg-center" style={{ backgroundImage: "url('https://images.pexels.com/photos/15576674/pexels-photo-15576674/free-photo-of-a-young-woman-having-her-hair-braided.jpeg?auto=compress&dpr=1&h=750&w=1260')" }} />
+      <div aria-hidden="true" className="absolute inset-0 -z-10 bg-gradient-to-r from-[#3f1023]/95 via-[#3f1023]/82 to-[#3f1023]/50" />
       <div className="mx-auto max-w-7xl">
         <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
           <div className="max-w-4xl">
-            <p className="text-[10px] font-bold uppercase tracking-[.24em] text-luxury-pink">Prestations Reina Beauty</p>
-            <h1 className="mt-4 font-serif text-[2.6rem] font-bold leading-[.98] text-luxury-wine sm:text-6xl lg:text-7xl">Votre beauté,<br/><span className="font-normal italic">votre rituel.</span></h1>
-            <p className="mt-5 max-w-xl text-sm leading-7 text-luxury-muted">Parcourez nos univers et choisissez celui qui vous correspond. Chaque carte ouvre une page complète avec les variantes, les informations utiles et la réservation.</p>
+            <p className="text-[10px] font-bold uppercase tracking-[.24em] text-[#f4d6de]">Prestations Reina Beauty</p>
+            <h1 className="mt-4 font-serif text-[2.6rem] font-bold leading-[.98] text-white sm:text-6xl lg:text-7xl">Votre beauté,<br/><span className="font-normal italic">votre rituel.</span></h1>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-white/80">Parcourez nos univers et choisissez celui qui vous correspond. Chaque carte ouvre une page complète avec les variantes, les informations utiles et la réservation.</p>
           </div>
-          <div className="rounded-3xl border border-luxury-line bg-luxury-bg p-5 sm:p-6">
-            <p className="font-serif text-xl font-bold text-luxury-wine">Vous hésitez ?</p>
-            <p className="mt-2 text-xs leading-6 text-luxury-muted">Expliquez-nous votre envie et nous vous orientons vers la prestation adaptée.</p>
-            <a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20conseil%20pour%20choisir%20ma%20prestation." target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-luxury-wine">Demander conseil <ArrowRight className="size-4" /></a>
+          <div className="rounded-3xl border border-white/20 bg-white/10 p-5 backdrop-blur-md sm:p-6">
+            <p className="font-serif text-xl font-bold text-white">Vous hésitez ?</p>
+            <p className="mt-2 text-xs leading-6 text-white/75">Expliquez-nous votre envie et nous vous orientons vers la prestation adaptée.</p>
+            <a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20conseil%20pour%20choisir%20ma%20prestation." target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-white">Demander conseil <ArrowRight className="size-4" /></a>
           </div>
         </div>
-        <div className="mt-9 flex items-center gap-5 border-t border-luxury-line pt-5">
+        <div className="mt-9 flex items-center gap-5 border-t border-white/20 pt-5">
           <a href="#explorer" className="inline-flex items-center gap-2 rounded-full bg-luxury-wine px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-white">Voir les prestations <ArrowDown className="size-4" /></a>
-          <span className="hidden text-[10px] font-semibold uppercase tracking-[.16em] text-luxury-muted sm:inline">Locks · Tresses · Soins · Henné · Beauté</span>
+          <span className="hidden text-[10px] font-semibold uppercase tracking-[.16em] text-white/70 sm:inline">Locks · Tresses · Soins · Henné · Beauté</span>
         </div>
       </div>
     </section>
