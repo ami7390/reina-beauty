@@ -1,11 +1,10 @@
 "use client";
 
+import Link from "next/link";
 import { ManagedImage } from "@/components/managed-image";
-
-import { AnimatePresence, motion } from "framer-motion";
-import { Calendar, CheckCircle2, CircleDollarSign, Clock3, Coffee, Search, ShieldCheck, Sparkles, Star } from "lucide-react";
+import { motion } from "framer-motion";
+import { ArrowDown, ArrowRight, Calendar, CheckCircle2, Coffee, Search, ShieldCheck, Sparkles, Star } from "lucide-react";
 import { useMemo, useState } from "react";
-import { services } from "@/lib/reina-data";
 
 const sections = [
   ["all", "Toutes"],
@@ -16,142 +15,109 @@ const sections = [
 ] as const;
 
 const subcategories: Record<string, readonly [string, string][]> = {
-  coiffure: [["locks", "Micro Locks"], ["tresses", "Tresses & coiffures protectrices"]],
-  soins: [["soins", "Cheveux"], ["visage", "Visage"]],
-  couleur: [["teinture", "Coloration"]],
+  coiffure: [["locks", "Locks"], ["tresses", "Tresses"]],
+  soins: [["soins-cheveux", "Cheveux"], ["soins-visage", "Visage"]],
+  couleur: [["coloration", "Coloration"]],
   beaute: [["henne", "Henné"], ["maquillage", "Maquillage"], ["onglerie", "Manucure & pédicure"]],
 };
 
-function serviceSection(category: string) {
-  if (["locks", "tresses"].includes(category)) return "coiffure";
-  if (["soins", "visage"].includes(category)) return "soins";
-  if (category === "teinture") return "couleur";
-  return "beaute";
-}
+const families = [
+  { id: "locks", section: "coiffure", title: "Locks", subtitle: "Micro Locks, Starter Locks, locks traditionnelles, retwist & Instant Locks", price: "À partir de 15 000 FCFA", image: "/images/coiffures/locks/reina-installation-locks-tiktok.webp", href: "/prestations/locks" },
+  { id: "tresses", section: "coiffure", title: "Tresses & coiffures protectrices", subtitle: "Nattes artistiques, Laïfou, Napi et styles protecteurs", price: "Tarif sur devis", image: "/images/coiffures/nattes/reina-nattes-artistiques.webp", href: "/prestations/tresses" },
+  { id: "soins-cheveux", section: "soins", title: "Soins des cheveux", subtitle: "Nutrition, cuir chevelu et rituels capillaires", price: "Tarif sur devis", image: "/images/soins/capillaires/reina-bain-huiles.webp", href: "/prestations/soins-cheveux" },
+  { id: "soins-visage", section: "soins", title: "Soins du visage", subtitle: "Nettoyage doux et éclat naturel", price: "Tarif sur devis", image: "/images/soins/visage/reina-soin-visage-tiktok.webp", href: "/prestations/soins-visage" },
+  { id: "coloration", section: "couleur", title: "Coloration", subtitle: "Bordeaux, cuivré, miel, auburn et nuances personnalisées", price: "Tarif sur devis", image: "/images/coiffures/colorations/reina-coloration-bordeaux.webp", href: "/prestations/coloration" },
+  { id: "henne", section: "beaute", title: "Henné", subtitle: "Motifs artistiques et traditionnels", price: "Tarif sur devis", image: "/images/henne/reina-henne-tiktok.webp", href: "/prestations/henne" },
+  { id: "maquillage", section: "beaute", title: "Maquillage", subtitle: "Mise en beauté pour événements et cérémonies", price: "Tarif sur devis", image: "/images/maquillage/reina-maquillage-evenementiel.webp", href: "/prestations/maquillage" },
+  { id: "onglerie", section: "beaute", title: "Manucure & pédicure", subtitle: "Soin des mains, des pieds et finitions", price: "Tarif sur devis", image: "https://images.pexels.com/photos/34930135/pexels-photo-34930135/free-photo-of-professional-pedicure-session-at-beauty-salon.jpeg?auto=compress&dpr=1&h=750&w=1260", href: "/prestations/onglerie" },
+] as const;
 
 export default function PrestationsPage() {
   const [section, setSection] = useState("all");
   const [subcategory, setSubcategory] = useState("all");
   const [query, setQuery] = useState("");
+
   const filtered = useMemo(() => {
     const normalized = query.trim().toLocaleLowerCase("fr");
-    return services.filter((service) => {
-      const matchesSection = section === "all" || serviceSection(service.category) === section;
-      const matchesSubcategory = subcategory === "all" || service.category === subcategory;
-      const haystack = `${service.title} ${service.subtitle} ${service.description}`.toLocaleLowerCase("fr");
+    return families.filter((family) => {
+      const matchesSection = section === "all" || family.section === section;
+      const matchesSubcategory = subcategory === "all" || family.id === subcategory;
+      const haystack = `${family.title} ${family.subtitle}`.toLocaleLowerCase("fr");
       return matchesSection && matchesSubcategory && (!normalized || haystack.includes(normalized));
     });
   }, [section, subcategory, query]);
 
   const reset = () => { setSection("all"); setSubcategory("all"); setQuery(""); };
 
-  return (
-    <main className="min-h-screen bg-luxury-bg pb-20">
-      <section className="border-b border-luxury-line bg-gradient-to-b from-white to-luxury-bg px-5 py-16 lg:px-8">
-        <div className="mx-auto max-w-3xl text-center">
-          <span className="luxury-badge"><Sparkles className="size-4" /> Expertise & haute précision</span>
-          <h1 className="mt-5 font-serif text-5xl font-bold text-luxury-wine sm:text-6xl">Nos Prestations</h1>
-          <p className="mx-auto mt-5 max-w-2xl text-sm leading-7 text-luxury-muted">Découvrez toutes les expertises Reina Beauty dans un cadre intime exclusivement réservé aux femmes. Chaque rendez-vous est adapté à vos besoins. Les tarifs indiqués sont des repères et sont confirmés selon la longueur, la densité et la prestation choisie.</p>
-        </div>
-      </section>
-
-      <section className="bg-luxury-wine px-5 py-7 text-white lg:px-8" aria-label="Attentions incluses">
-        <div className="mx-auto grid max-w-7xl gap-5 text-center sm:grid-cols-2 lg:grid-cols-4">
-          <PrestigeItem icon={CheckCircle2}>Diagnostic personnalisé</PrestigeItem>
-          <PrestigeItem icon={Coffee}>Boisson de bienvenue</PrestigeItem>
-          <PrestigeItem icon={ShieldCheck}>Cadre intime et féminin</PrestigeItem>
-          <PrestigeItem icon={Star}>Finitions soignées</PrestigeItem>
-        </div>
-      </section>
-
-      <section className="sticky top-20 z-40 border-b border-luxury-line bg-white/95 px-5 py-4 shadow-sm backdrop-blur-xl lg:px-8">
-        <div className="mx-auto flex max-w-7xl flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
-          <label className="relative block w-full lg:max-w-xs">
-            <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-luxury-muted" />
-            <span className="sr-only">Rechercher une prestation</span>
-            <input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher : locks, miel, henné…" className="w-full rounded-full border border-luxury-line bg-luxury-bg py-3 pl-11 pr-4 text-xs outline-none focus:border-luxury-wine" />
-          </label>
-          <div className="text-[10px] font-semibold uppercase tracking-[.16em] text-luxury-muted">Recherche rapide des prestations</div>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
-        <div className="grid gap-8 lg:grid-cols-[230px_minmax(0,1fr)] lg:items-start">
-          <aside className="rounded-3xl border border-luxury-line bg-white p-4 shadow-lg shadow-black/5 lg:sticky lg:top-40" aria-label="Filtrer les prestations">
-            <button type="button" onClick={reset} className={`w-full rounded-2xl px-4 py-3 text-left text-xs font-bold transition ${section === "all" && subcategory === "all" ? "bg-luxury-wine text-white" : "text-luxury-wine hover:bg-luxury-bg"}`}>Toutes</button>
-
-            {sections.filter(([id]) => id !== "all").map(([id, label]) => (
-              <div key={id} className="mt-2 border-t border-luxury-line pt-2 first:border-t-0 first:pt-0">
-                <button type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className={`w-full rounded-2xl px-4 py-3 text-left font-serif text-lg font-bold transition ${section === id && subcategory === "all" ? "bg-luxury-champagne text-luxury-wine" : "text-luxury-wine hover:bg-luxury-bg"}`}>{label}</button>
-                <div className="ml-3 border-l border-luxury-line pl-3">
-                  {(subcategories[id] ?? []).map(([subId, subLabel]) => (
-                    <button key={subId} type="button" onClick={() => { setSection(id); setSubcategory(subId); }} className={`mt-1 block w-full rounded-xl px-3 py-2 text-left text-[10px] font-semibold transition ${section === id && subcategory === subId ? "bg-luxury-wine text-white" : "text-luxury-muted hover:bg-luxury-bg hover:text-luxury-wine"}`}>{subLabel}</button>
-                  ))}
-                </div>
-              </div>
-            ))}
-          </aside>
-
-          <div>
-            <div className="mb-8 flex flex-col gap-3 border-b border-luxury-line pb-6 sm:flex-row sm:items-end sm:justify-between">
-              <div>
-                <p className="text-[9px] font-bold uppercase tracking-[.2em] text-luxury-pink">Prestations disponibles</p>
-                <h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">{sections.find(([id]) => id === section)?.[1] ?? "Toutes les prestations"}{subcategory !== "all" ? ` · ${Object.values(subcategories).flat().find(([id]) => id === subcategory)?.[1] ?? ""}` : ""}</h2>
-              </div>
-              {(section !== "all" || subcategory !== "all" || query) && <button type="button" onClick={reset} className="text-[10px] font-bold uppercase tracking-wider text-luxury-wine underline underline-offset-4">Voir tout</button>}
-            </div>
-
-            {filtered.length === 0 ? <div className="rounded-3xl border border-luxury-line bg-white px-6 py-20 text-center"><p className="text-sm text-luxury-muted">Aucune prestation ne correspond à votre sélection.</p><button type="button" onClick={reset} className="mt-5 text-xs font-bold uppercase text-luxury-wine underline">Réinitialiser</button></div> :
-              <motion.div layout className="grid gap-7 md:grid-cols-2 xl:grid-cols-3">
-                <AnimatePresence mode="popLayout">
-                  {filtered.map((service) => <motion.article layout initial={{ opacity: 0, scale: .94 }} animate={{ opacity: 1, scale: 1 }} exit={{ opacity: 0, scale: .94 }} key={service.id} className="group flex flex-col overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:shadow-xl">
-                    <div className="relative h-56 overflow-hidden">
-                      <ManagedImage src={service.image} alt={service.title} className={`h-full w-full transition duration-700 group-hover:scale-105 ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />
-                      {service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}
-                    </div>
-                    <div className="flex flex-1 flex-col p-7">
-                      <h2 className="font-serif text-2xl font-bold">{service.title}</h2>
-                      <p className="mt-1 text-xs font-semibold text-luxury-pink">{service.subtitle}</p>
-                      <p className="mt-4 flex-1 text-xs leading-6 text-luxury-muted">{service.description}</p>
-                      <div className="mt-6 border-t border-luxury-line pt-5">
-                        <p className="flex items-center gap-2 text-[10px] font-semibold uppercase tracking-wider text-luxury-muted"><Clock3 className="size-3.5" /> Durée indicative : {service.duration}</p>
-                        <div className="mt-3 flex items-center justify-between gap-3 rounded-2xl bg-luxury-bg px-4 py-3">
-                          <span className="flex items-center gap-2 text-[9px] font-bold uppercase tracking-wider text-luxury-muted"><CircleDollarSign className="size-4 text-luxury-pink" /> Plage tarifaire</span>
-                          <strong className="text-right text-xs text-luxury-wine">{service.price}</strong>
-                        </div>
-                        <a href={`https://wa.me/22371989895?text=${encodeURIComponent(`Bonjour Reina Beauty, je souhaite réserver la prestation : ${service.title}. Pouvez-vous me confirmer le tarif selon mes besoins ?`)}`} target="_blank" rel="noreferrer" className="mt-4 flex w-full items-center justify-center gap-2 rounded-full border border-luxury-line bg-luxury-bg px-5 py-3 text-xs font-bold uppercase tracking-wider text-luxury-wine transition hover:bg-luxury-wine hover:text-white"><Calendar className="size-4" /> Réserver cette prestation</a>
-                      </div>
-                    </div>
-                  </motion.article>)}
-                </AnimatePresence>
-              </motion.div>}
+  return <main className="min-h-screen bg-luxury-bg pb-20">
+    <section className="relative isolate overflow-hidden border-b border-luxury-line bg-gradient-to-br from-white via-[#fff9f7] to-[#f4e8ea] px-5 py-20 lg:px-8 lg:py-24">
+      <div className="mx-auto grid max-w-7xl items-center gap-10 lg:grid-cols-[1.2fr_.8fr]">
+        <div>
+          <span className="luxury-badge"><Sparkles className="size-4" /> Coiffure, soins & beauté</span>
+          <h1 className="mt-5 max-w-4xl font-serif text-5xl font-bold leading-[1.05] text-luxury-wine sm:text-6xl">Explorez nos univers beauté.</h1>
+          <p className="mt-5 max-w-2xl text-sm leading-7 text-luxury-muted">Cette page est votre point de départ. Choisissez une famille de prestations ci-dessous pour ouvrir sa page dédiée et découvrir toutes les options disponibles, les durées et les tarifs.</p>
+          <div className="mt-7 flex flex-wrap gap-3">
+            <a href="#explorer" className="inline-flex items-center gap-2 rounded-full bg-luxury-wine px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-white shadow-md">Voir les univers <ArrowDown className="size-4" /></a>
+            <a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20conseil%20pour%20choisir%20ma%20prestation." target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-luxury-line bg-white px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-luxury-wine">Être conseillée</a>
           </div>
         </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-5 pt-20 lg:px-8">
-        <div className="grid items-center gap-8 rounded-3xl border border-luxury-line bg-white p-8 shadow-xl sm:p-12 lg:grid-cols-2">
-          <div><p className="text-[10px] font-bold uppercase tracking-[.22em] text-luxury-pink">Diagnostic sur mesure</p><h2 className="mt-3 font-serif text-3xl font-bold sm:text-4xl">Une prestation complexe ? Parlons-en.</h2><p className="mt-4 text-sm leading-7 text-luxury-muted">La création de Micro Locks, les colorations et certaines coiffures dépendent de la longueur, de la densité et du résultat souhaité. Envoyez une photo sur WhatsApp pour recevoir un conseil personnalisé.</p></div>
-          <a href={`https://wa.me/22371989895?text=${encodeURIComponent("Bonjour Reina Beauty, je souhaite un diagnostic et un devis personnalisé pour mes cheveux.")}`} target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-full bg-luxury-wine px-7 py-4 text-xs font-bold uppercase tracking-wider text-white"><Calendar className="size-4" /> Demander un diagnostic</a>
-        </div>
-      </section>
-
-      <section className="mx-auto max-w-5xl px-5 pt-20 lg:px-8">
-        <div className="rounded-3xl bg-luxury-footer p-8 text-white shadow-2xl sm:p-12">
-          <div className="mx-auto max-w-xl text-center"><ShieldCheck className="mx-auto size-9 text-luxury-champagne" /><h2 className="mt-4 font-serif text-3xl font-bold">Politique du salon</h2><p className="mt-2 text-xs text-white/70">Pour une expérience fluide, intime et respectueuse.</p></div>
-          <div className="mt-10 grid gap-5 sm:grid-cols-3">
-            <Policy title="100% féminin">Cadre exclusivement réservé aux femmes, avec respect de votre intimité et de votre confort.</Policy>
-            <Policy title="Ponctualité">Merci d’arriver quelques minutes avant votre créneau. Un retard important peut entraîner un report.</Policy>
-            <Policy title="Réservation">Rendez-vous ouverts 7j/7 par WhatsApp ou téléphone au 71 98 98 95.</Policy>
+        <div className="rounded-[2rem] border border-white/70 bg-white/75 p-7 shadow-xl backdrop-blur sm:p-9">
+          <p className="text-[10px] font-bold uppercase tracking-[.22em] text-luxury-pink">En 3 étapes</p>
+          <div className="mt-6 space-y-5">
+            {["Choisissez un univers", "Découvrez toutes ses variantes", "Réservez ou demandez votre devis"].map((item, index) => <div key={item} className="flex items-start gap-4"><span className="grid size-8 shrink-0 place-items-center rounded-full bg-luxury-wine text-xs font-bold text-white">{index + 1}</span><p className="pt-1 text-sm font-semibold text-luxury-text">{item}</p></div>)}
           </div>
         </div>
-      </section>
-    </main>
-  );
-}
+      </div>
+    </section>
 
-function Policy({ title, children }: { title: string; children: React.ReactNode }) {
-  return <div className="rounded-2xl bg-white/10 p-6"><h3 className="text-xs font-bold uppercase tracking-wider text-luxury-champagne">{title}</h3><p className="mt-3 text-xs leading-6 text-white/80">{children}</p></div>;
+    <section className="bg-luxury-wine px-5 py-6 text-white lg:px-8">
+      <div className="mx-auto grid max-w-7xl gap-4 text-center sm:grid-cols-2 lg:grid-cols-4">
+        <PrestigeItem icon={CheckCircle2}>Diagnostic personnalisé</PrestigeItem>
+        <PrestigeItem icon={Coffee}>Accueil attentionné</PrestigeItem>
+        <PrestigeItem icon={ShieldCheck}>Cadre intime et féminin</PrestigeItem>
+        <PrestigeItem icon={Star}>Finitions soignées</PrestigeItem>
+      </div>
+    </section>
+
+    <section id="explorer" className="mx-auto max-w-7xl scroll-mt-28 px-5 pt-12 lg:px-8">
+      <div className="grid gap-8 lg:grid-cols-[220px_minmax(0,1fr)]">
+        <aside className="h-fit rounded-3xl border border-luxury-line bg-white p-4 shadow-sm lg:sticky lg:top-28">
+          <button type="button" onClick={reset} className={`w-full rounded-2xl px-4 py-3 text-left text-xs font-bold transition ${section === "all" ? "bg-luxury-wine text-white" : "text-luxury-wine hover:bg-luxury-bg"}`}>Toutes</button>
+          <div className="mt-2 space-y-2">
+            {sections.filter(([id]) => id !== "all").map(([id, label]) => <div key={id} className="rounded-2xl border border-luxury-line/80 p-2">
+              <button type="button" onClick={() => { setSection(id); setSubcategory("all"); }} className={`w-full rounded-xl px-3 py-2 text-left text-xs font-bold transition ${section === id && subcategory === "all" ? "bg-luxury-champagne text-luxury-wine" : "text-luxury-text hover:bg-luxury-bg"}`}>{label}</button>
+              <div className="mt-1 space-y-1 border-l border-luxury-line pl-3">
+                {(subcategories[id] ?? []).map(([subId, subLabel]) => <button key={subId} type="button" onClick={() => { setSection(id); setSubcategory(subId); }} className={`block w-full rounded-lg px-2 py-1.5 text-left text-[11px] transition ${subcategory === subId ? "font-bold text-luxury-wine" : "text-luxury-muted hover:text-luxury-wine"}`}>{subLabel}</button>)}
+              </div>
+            </div>)}
+          </div>
+        </aside>
+
+        <div>
+          <div className="mb-7 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+            <div><p className="text-[10px] font-bold uppercase tracking-[.2em] text-luxury-pink">Nos univers</p><h2 className="mt-2 font-serif text-3xl font-bold text-luxury-wine">Choisissez votre prestation</h2></div>
+            <label className="relative block w-full sm:max-w-xs"><Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-luxury-muted" /><input value={query} onChange={(event) => setQuery(event.target.value)} placeholder="Rechercher" className="w-full rounded-full border border-luxury-line bg-white py-3 pl-11 pr-4 text-xs outline-none focus:border-luxury-wine" /></label>
+          </div>
+
+          {filtered.length === 0 ? <div className="rounded-3xl border border-luxury-line bg-white px-6 py-20 text-center"><p className="text-sm text-luxury-muted">Aucun univers ne correspond à votre sélection.</p><button type="button" onClick={reset} className="mt-5 text-xs font-bold uppercase text-luxury-wine underline">Réinitialiser</button></div> :
+            <motion.div layout className="grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+              {filtered.map((family) => <motion.article layout key={family.id} className="group overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
+                <Link href={family.href} className="block">
+                  <div className="h-56 overflow-hidden"><ManagedImage src={family.image} alt={family.title} className="h-full w-full object-cover transition duration-700 group-hover:scale-105" /></div>
+                  <div className="p-5">
+                    <h3 className="font-serif text-xl font-bold text-luxury-text">{family.title}</h3>
+                    <p className="mt-1 line-clamp-2 text-xs leading-5 text-luxury-muted">{family.subtitle}</p>
+                    <div className="mt-4 flex items-center justify-between gap-3 border-t border-luxury-line pt-4"><span className="text-[10px] font-bold text-luxury-wine">{family.price}</span><span className="inline-flex items-center gap-1 text-[10px] font-bold uppercase tracking-wider text-luxury-wine">Découvrir <ArrowRight className="size-3.5" /></span></div>
+                  </div>
+                </Link>
+              </motion.article>)}
+            </motion.div>}
+        </div>
+      </div>
+    </section>
+
+    <section className="mx-auto max-w-5xl px-5 pt-20 lg:px-8"><div className="grid items-center gap-8 rounded-3xl border border-luxury-line bg-white p-8 shadow-xl sm:p-12 lg:grid-cols-2"><div><p className="text-[10px] font-bold uppercase tracking-[.22em] text-luxury-pink">Diagnostic sur mesure</p><h2 className="mt-3 font-serif text-3xl font-bold sm:text-4xl">Vous hésitez ?</h2><p className="mt-4 text-sm leading-7 text-luxury-muted">Envoyez une photo et le résultat souhaité. L’équipe vous orientera vers la prestation la plus adaptée et vous confirmera le tarif.</p></div><a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20diagnostic%20et%20un%20devis%20personnalis%C3%A9." target="_blank" rel="noreferrer" className="flex items-center justify-center gap-2 rounded-full bg-luxury-wine px-7 py-4 text-xs font-bold uppercase tracking-wider text-white"><Calendar className="size-4" /> Demander un diagnostic</a></div></section>
+  </main>;
 }
 
 function PrestigeItem({ icon: Icon, children }: { icon: React.ComponentType<{ className?: string }>; children: React.ReactNode }) {
