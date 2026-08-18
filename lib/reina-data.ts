@@ -36,7 +36,7 @@ export const services: readonly Service[] = [
   { id: 13, category: "teinture", title: "Coloration Miel Doré", subtitle: "Lumière douce", description: "Des nuances miel et caramel pour illuminer les boucles et créer un relief élégant.", duration: "1h 30 – 3h", price: "Tarif sur devis", image: "/images/coiffures/colorations/reina-coloration-miel-dore.webp" },
   { id: 14, category: "teinture", title: "Coloration Auburn", subtitle: "Brun chaud aux reflets rouges", description: "Une nuance auburn sophistiquée réalisée sur mesure selon votre base et l’état des cheveux.", duration: "1h 30 – 3h", price: "Tarif sur devis", image: "/images/coiffures/locks/reina-microlocks-color-clean.png" },
   { id: 8, category: "onglerie", title: "Manucure & Pédicure Spa", subtitle: "Mains et pieds", description: "Soin des cuticules, gommage, massage et finitions soignées dans une atmosphère confortable.", duration: "1h 15", price: "Tarif sur devis", image: "https://images.pexels.com/photos/34930135/pexels-photo-34930135/free-photo-of-professional-pedicure-session-at-beauty-salon.jpeg?auto=compress&dpr=1&h=750&w=1260" },
-  { id: 9, category: "henne", title: "Henné Artistique & Traditionnel", subtitle: "Motifs et tracé fin", description: "Création personnalisée à la main avec un henné préparé avec soin.", duration: "1h – 3h", price: "Tarif sur devis", image: "/images/henne/reina-henne-tiktok.webp", highlight: "Art Reina" },
+  { id: 9, category: "henne", title: "Henné Artistique & Traditionnel", subtitle: "Motifs et tracé fin", description: "Création personnalisée à la main avec un henné préparé avec soin.", duration: "1h – 3h", price: "Tarif sur devis", image: "/images/henne/reina-henne-client.webp", highlight: "Art Reina" },
 ];
 
 export const formations = [

@@ -27,7 +27,7 @@ const families = [
   { id: "soins-cheveux", section: "soins", title: "Soins des cheveux", subtitle: "Nutrition, cuir chevelu et rituels capillaires", price: "Tarif sur devis", image: "/images/soins/capillaires/reina-bain-huiles.webp", href: "/prestations/soins-cheveux" },
   { id: "soins-visage", section: "soins", title: "Soins du visage", subtitle: "Nettoyage doux et éclat naturel", price: "Tarif sur devis", image: "/images/soins/visage/reina-soin-visage-tiktok.webp", href: "/prestations/soins-visage" },
   { id: "coloration", section: "couleur", title: "Coloration", subtitle: "Bordeaux, cuivré, miel, auburn et nuances personnalisées", price: "Tarif sur devis", image: "/images/coiffures/colorations/reina-coloration-bordeaux.webp", href: "/prestations/coloration" },
-  { id: "henne", section: "beaute", title: "Henné artistique", subtitle: "Motifs fins, créations personnalisées et embellissement traditionnel", price: "Tarif sur devis", image: "/images/henne/reina-henne-tiktok.webp", href: "/prestations/henne" },
+  { id: "henne", section: "beaute", title: "Henné artistique", subtitle: "Motifs fins, créations personnalisées et embellissement traditionnel", price: "Tarif sur devis", image: "/images/henne/reina-henne-client.webp", href: "/prestations/henne" },
   { id: "onglerie", section: "beaute", title: "Manucure & pédicure", subtitle: "Soin des mains, des pieds et finitions", price: "Tarif sur devis", image: "https://images.pexels.com/photos/34930135/pexels-photo-34930135/free-photo-of-professional-pedicure-session-at-beauty-salon.jpeg?auto=compress&dpr=1&h=750&w=1260", href: "/prestations/onglerie" },
 ] as const;
 
