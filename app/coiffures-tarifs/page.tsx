@@ -15,21 +15,19 @@ const sections = [
 ] as const;
 
 const subcategories: Record<string, readonly [string, string][]> = {
-  coiffure: [["locks", "Locks"], ["tresses", "Tresses"], ["twists-vanilles", "Twist & Vanilles"]],
+  coiffure: [["locks", "Locks"], ["tresses", "Tresses"]],
   soins: [["soins-cheveux", "Cheveux"], ["soins-visage", "Visage"]],
   couleur: [["coloration", "Coloration"]],
-  beaute: [["henne", "Henné"], ["maquillage", "Maquillage"], ["onglerie", "Manucure & pédicure"]],
+  beaute: [["henne", "Henné artistique"], ["onglerie", "Manucure & pédicure"]],
 };
 
 const families = [
   { id: "locks", section: "coiffure", title: "Locks", subtitle: "Micro Locks, Starter Locks, locks traditionnelles, retwist & Instant Locks", price: "À partir de 15 000 FCFA", image: "/images/coiffures/locks/reina-installation-locks-tiktok.webp", href: "/prestations/locks" },
   { id: "tresses", section: "coiffure", title: "Tresses & coiffures protectrices", subtitle: "Nattes artistiques, Laïfou, Napi et styles protecteurs", price: "Tarif sur devis", image: "/images/coiffures/nattes/reina-nattes-artistiques.webp", href: "/prestations/tresses" },
-  { id: "twists-vanilles", section: "coiffure", title: "Twist & Vanilles", subtitle: "Vanilles, Twist et Micro Twist", price: "Tarif sur devis", image: "/images/coiffures/twists/reina-vanilles.webp", href: "/prestations/twists-vanilles" },
   { id: "soins-cheveux", section: "soins", title: "Soins des cheveux", subtitle: "Nutrition, cuir chevelu et rituels capillaires", price: "Tarif sur devis", image: "/images/soins/capillaires/reina-bain-huiles.webp", href: "/prestations/soins-cheveux" },
   { id: "soins-visage", section: "soins", title: "Soins du visage", subtitle: "Nettoyage doux et éclat naturel", price: "Tarif sur devis", image: "/images/soins/visage/reina-soin-visage-tiktok.webp", href: "/prestations/soins-visage" },
   { id: "coloration", section: "couleur", title: "Coloration", subtitle: "Bordeaux, cuivré, miel, auburn et nuances personnalisées", price: "Tarif sur devis", image: "/images/coiffures/colorations/reina-coloration-bordeaux.webp", href: "/prestations/coloration" },
-  { id: "henne", section: "beaute", title: "Henné", subtitle: "Motifs artistiques et traditionnels", price: "Tarif sur devis", image: "/images/henne/reina-henne-tiktok.webp", href: "/prestations/henne" },
-  { id: "maquillage", section: "beaute", title: "Maquillage", subtitle: "Mise en beauté pour événements et cérémonies", price: "Tarif sur devis", image: "/images/maquillage/reina-maquillage-evenementiel.webp", href: "/prestations/maquillage" },
+  { id: "henne", section: "beaute", title: "Henné artistique", subtitle: "Motifs fins, créations personnalisées et embellissement traditionnel", price: "Tarif sur devis", image: "/images/henne/reina-henne-tiktok.webp", href: "/prestations/henne" },
   { id: "onglerie", section: "beaute", title: "Manucure & pédicure", subtitle: "Soin des mains, des pieds et finitions", price: "Tarif sur devis", image: "https://images.pexels.com/photos/34930135/pexels-photo-34930135/free-photo-of-professional-pedicure-session-at-beauty-salon.jpeg?auto=compress&dpr=1&h=750&w=1260", href: "/prestations/onglerie" },
 ] as const;
 
@@ -42,7 +40,7 @@ export default function PrestationsPage() {
     const normalized = query.trim().toLocaleLowerCase("fr");
     const isDefaultView = section === "all" && subcategory === "all" && !normalized;
     const source = isDefaultView
-      ? families.filter((family) => ["locks", "tresses", "twists-vanilles", "soins-cheveux"].includes(family.id))
+      ? families.filter((family) => ["locks", "tresses", "soins-cheveux", "henne"].includes(family.id))
       : families;
     return source.filter((family) => {
       const matchesSection = section === "all" || family.section === section;

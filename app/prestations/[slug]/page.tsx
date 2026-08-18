@@ -5,14 +5,12 @@ import { ManagedImage } from "@/components/managed-image";
 import { services } from "@/lib/reina-data";
 
 const families = {
-  locks: { category: "locks", title: "Locks", intro: "Découvrez nos créations et entretiens de locks : Micro Locks, Starter Locks, locks traditionnelles, retwist et Instant Locks." },
+  locks: { category: "locks", title: "Locks, Twist & Vanilles", intro: "Découvrez nos créations et entretiens : Micro Locks, Starter Locks, locks traditionnelles, retwist, Instant Locks, Twist, Micro Twist et Vanilles." },
   tresses: { category: "tresses", title: "Tresses & coiffures protectrices", intro: "Nattes artistiques, Laïfou, Napi et autres coiffures protectrices réalisées selon votre style et vos cheveux." },
-  "twists-vanilles": { category: "twists", title: "Twist & Vanilles", intro: "Vanilles, twists et micro twists : des coiffures torsadées protectrices, légères et adaptées à votre style." },
   "soins-cheveux": { category: "soins", title: "Soins des cheveux", intro: "Des rituels ciblés pour nourrir les longueurs, prendre soin du cuir chevelu et accompagner votre routine capillaire." },
   "soins-visage": { category: "visage", title: "Soins du visage", intro: "Des soins visage pensés pour nettoyer la peau en douceur et raviver naturellement son éclat." },
   coloration: { category: "teinture", title: "Coloration", intro: "Des nuances personnalisées après diagnostic, pour illuminer ou transformer la chevelure en respectant son état." },
-  henne: { category: "henne", title: "Henné", intro: "Motifs artistiques et traditionnels réalisés à la main avec précision." },
-  maquillage: { category: "maquillage", title: "Maquillage", intro: "Mises en beauté adaptées aux cérémonies, événements et occasions spéciales." },
+  henne: { category: "henne", title: "Henné artistique", intro: "Un véritable embellissement à la main : motifs fins, compositions traditionnelles ou personnalisées, réalisés avec précision pour sublimer mains et pieds." },
   onglerie: { category: "onglerie", title: "Manucure & pédicure", intro: "Des soins des mains et des pieds avec des finitions propres et soignées." },
 } as const;
 
@@ -41,7 +39,7 @@ export default async function ServiceFamilyPage({ params }: { params: Promise<{ 
     <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
       <div className="grid gap-7 md:grid-cols-2 xl:grid-cols-3">
         {items.map((service) => <article key={service.id} className="overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm">
-          <div className="relative h-60 overflow-hidden"><ManagedImage src={family.category === "locks" ? "/images/coiffures/locks/reina-installation-locks-tiktok.webp" : service.image} alt={service.title} className={`h-full w-full ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />{service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}</div>
+          <div className="relative h-60 overflow-hidden"><ManagedImage src={service.image} alt={service.title} className={`h-full w-full ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />{service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}</div>
           <div className="p-6">
             <h2 className="font-serif text-2xl font-bold">{service.title}</h2>
             <p className="mt-1 text-xs font-semibold text-luxury-pink">{service.subtitle}</p>

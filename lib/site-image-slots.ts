@@ -20,7 +20,6 @@ export const SITE_IMAGE_SLOTS = [
   ['/images/coiffures/colorations/reina-coloration-bordeaux.webp', 'Coloration bordeaux', 'Prestations'],
   ['/images/coiffures/colorations/reina-coloration-cuivree.webp', 'Coloration cuivrée', 'Prestations'],
   ['/images/coiffures/colorations/reina-coloration-miel-dore.webp', 'Coloration miel doré', 'Prestations'],
-  ['/images/maquillage/reina-maquillage-evenementiel.webp', 'Maquillage événementiel', 'Prestations'],
   ['/images/henne/reina-henne-tiktok.webp', 'Henné artistique', 'Prestations'],
   ['/images/coiffures/laifou/reina-laifou-tiktok.webp', 'Coiffure Laïfou', 'Prestations'],
   ['/images/coiffures/nappi/reina-nappi-tiktok.webp', 'Coiffure Napi', 'Prestations'],

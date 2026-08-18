@@ -30,7 +30,7 @@ const faqs = [
   { q: "Le salon est-il totalement privé et réservé aux femmes ?", a: "Oui. Reina Beauty est un espace intime exclusivement dédié aux femmes, pensé pour votre confort et votre confidentialité." },
   { q: "Combien de temps prend l’installation de Micro Locks ?", a: "La durée moyenne varie entre 4 et 8 heures selon la longueur, la densité et le résultat souhaité. Une estimation est donnée après diagnostic." },
   { q: "À quoi sert le soin au miel et aux poudres ?", a: "Ce protocole est un soin du visage. Il est adapté à votre peau après un échange avec l’équipe Reina Beauty." },
-  { q: "Comment se déroulent les formations beauté ?", a: "Les sessions en henné, tresses et maquillage sont proposées en petit groupe ou en individuel, avec une pratique encadrée." },
+  { q: "Comment se déroulent les formations beauté ?", a: "Les sessions en henné, tresses et locks sont proposées en petit groupe ou en individuel, avec une pratique encadrée." },
   { q: "Comment réserver un rendez-vous ?", a: "La réservation se fait directement par WhatsApp ou par téléphone au 71 98 98 95." },
 ];
 
