@@ -39,10 +39,10 @@ export default async function ServiceFamilyPage({ params }: { params: Promise<{ 
     <section className="mx-auto max-w-7xl px-5 pt-12 lg:px-8">
       {slug === "henne" && <div className="mb-12 grid gap-6 sm:grid-cols-2 xl:grid-cols-4">
         {[
-          { image: 1, title: "Henné artistique — Mains", subtitle: "Motifs fins & élégants", description: "Composition personnalisée réalisée à la main pour sublimer les mains avec finesse." },
+          { image: 1, title: "Henné pieds & chevilles", subtitle: "Finition délicate", description: "Décoration raffinée des pieds et chevilles, pensée pour compléter votre mise en beauté." },
           { image: 2, title: "Henné traditionnel", subtitle: "Inspiration florale", description: "Motifs inspirés des traditions, adaptés à votre style et à l’occasion." },
           { image: 3, title: "Henné floral", subtitle: "Création sur mesure", description: "Fleurs, lignes et détails travaillés pour une décoration harmonieuse et unique." },
-          { image: 4, title: "Henné pieds & chevilles", subtitle: "Finition délicate", description: "Décoration raffinée des pieds et chevilles, pensée pour compléter votre mise en beauté." },
+          { image: 4, title: "Henné artistique — Mains", subtitle: "Motifs fins & élégants", description: "Composition personnalisée réalisée à la main pour sublimer les mains avec finesse." },
         ].map((item) => <article key={item.image} className="group overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm transition hover:-translate-y-1 hover:shadow-xl">
           <div className="relative overflow-hidden">
             <ManagedImage src={`/images/prestations/henne/showcase/henne-${item.image}.webp`} alt={item.title} className="aspect-[3/4] h-full w-full object-cover transition duration-700 group-hover:scale-105" />

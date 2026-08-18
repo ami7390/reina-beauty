@@ -53,24 +53,24 @@ export default function PrestationsPage() {
   const reset = () => { setSection("all"); setSubcategory("all"); setQuery(""); };
 
   return <main className="min-h-screen bg-luxury-bg pb-20">
-    <section className="relative isolate overflow-hidden border-b border-luxury-line bg-[#fffaf8] px-5 py-14 sm:py-16 lg:px-8 lg:py-20">
-      <div aria-hidden="true" className="pointer-events-none absolute -right-24 -top-24 size-80 rounded-full bg-luxury-champagne/30 blur-3xl" />
-      <div className="relative mx-auto max-w-7xl">
-        <div className="max-w-3xl">
-          <span className="luxury-badge"><Sparkles className="size-4" /> Reina Beauty · Bamako</span>
-          <h1 className="mt-5 font-serif text-4xl font-bold leading-[1.05] text-luxury-wine sm:text-5xl lg:text-6xl">Trouvez la prestation qui vous ressemble.</h1>
-          <p className="mt-5 max-w-2xl text-sm leading-7 text-luxury-muted sm:text-base">Locks, tresses, soins capillaires, henné et autres rituels beauté : explorez nos univers, comparez les options et ouvrez chaque prestation pour découvrir ses détails.</p>
-          <div className="mt-7 flex flex-wrap gap-3">
-            <a href="#explorer" className="inline-flex items-center gap-2 rounded-full bg-luxury-wine px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-white shadow-md transition hover:-translate-y-0.5">Explorer les prestations <ArrowDown className="size-4" /></a>
-            <a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20conseil%20pour%20choisir%20ma%20prestation." target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 rounded-full border border-luxury-line bg-white px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-luxury-wine transition hover:border-luxury-wine">Demander conseil <ArrowRight className="size-4" /></a>
+    <section className="relative overflow-hidden border-b border-luxury-line bg-white px-5 pb-10 pt-12 sm:pb-12 sm:pt-16 lg:px-8 lg:pt-20">
+      <div className="mx-auto max-w-7xl">
+        <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_320px] lg:items-end">
+          <div className="max-w-4xl">
+            <p className="text-[10px] font-bold uppercase tracking-[.24em] text-luxury-pink">Prestations Reina Beauty</p>
+            <h1 className="mt-4 font-serif text-[2.6rem] font-bold leading-[.98] text-luxury-wine sm:text-6xl lg:text-7xl">Votre beauté,<br/><span className="font-normal italic">votre rituel.</span></h1>
+            <p className="mt-5 max-w-xl text-sm leading-7 text-luxury-muted">Parcourez nos univers et choisissez celui qui vous correspond. Chaque carte ouvre une page complète avec les variantes, les informations utiles et la réservation.</p>
           </div>
-          <div className="mt-8 flex flex-wrap gap-x-6 gap-y-3 border-t border-luxury-line/70 pt-5 text-[11px] font-semibold text-luxury-muted">
-            <span className="inline-flex items-center gap-2"><CheckCircle2 className="size-4 text-luxury-wine" /> Conseil personnalisé</span>
-            <span className="inline-flex items-center gap-2"><ShieldCheck className="size-4 text-luxury-wine" /> Prestations soignées</span>
-            <span className="inline-flex items-center gap-2"><Star className="size-4 text-luxury-wine" /> Réservation WhatsApp</span>
+          <div className="rounded-3xl border border-luxury-line bg-luxury-bg p-5 sm:p-6">
+            <p className="font-serif text-xl font-bold text-luxury-wine">Vous hésitez ?</p>
+            <p className="mt-2 text-xs leading-6 text-luxury-muted">Expliquez-nous votre envie et nous vous orientons vers la prestation adaptée.</p>
+            <a href="https://wa.me/22371989895?text=Bonjour%20Reina%20Beauty,%20je%20souhaite%20un%20conseil%20pour%20choisir%20ma%20prestation." target="_blank" rel="noreferrer" className="mt-4 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider text-luxury-wine">Demander conseil <ArrowRight className="size-4" /></a>
           </div>
         </div>
-        <a href="#explorer" aria-label="Continuer vers les prestations" className="mt-10 inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-[.18em] text-luxury-wine sm:mt-12">Découvrir la suite <ArrowDown className="size-4 animate-bounce" /></a>
+        <div className="mt-9 flex items-center gap-5 border-t border-luxury-line pt-5">
+          <a href="#explorer" className="inline-flex items-center gap-2 rounded-full bg-luxury-wine px-6 py-3 text-[10px] font-bold uppercase tracking-wider text-white">Voir les prestations <ArrowDown className="size-4" /></a>
+          <span className="hidden text-[10px] font-semibold uppercase tracking-[.16em] text-luxury-muted sm:inline">Locks · Tresses · Soins · Henné · Beauté</span>
+        </div>
       </div>
     </section>
     <section className="bg-luxury-wine px-5 py-6 text-white lg:px-8">
