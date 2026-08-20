@@ -22,7 +22,8 @@ const heroVideos: Partial<Record<FamilySlug, { src: string; poster?: string; lab
   tresses: { src: "https://www.pexels.com/download/video/7951294/", poster: "/images/coiffures/nattes/reina-nattes-artistiques.webp", label: "Tressage afro en salon" },
   "soins-visage": { src: "https://www.pexels.com/download/video/12322704/", label: "Soin du visage sur peau noire" },
   "soins-cheveux": { src: "https://www.pexels.com/download/video/7951294/", label: "Soin et coiffure de cheveux afro" },
-  onglerie: { src: "https://www.pexels.com/download/video/7754446/", label: "Manucure en salon" },
+  onglerie: { src: "https://www.pexels.com/download/video/7754446/", label: "Manucure et pédicure en salon" },
+  henne: { src: "https://www.pexels.com/download/video/7754485/", label: "Beauté en salon" },
 };
 
 const serviceVideos: Partial<Record<number, string>> = {
