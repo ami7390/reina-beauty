@@ -20,6 +20,7 @@ export function DelayedLockVideo({
 
   const startVideo = () => {
     if (startedRef.current) return;
+    window.dispatchEvent(new CustomEvent("reina:service-video-play", { detail: video }));
     const element = videoRef.current;
     if (!element) return;
     startedRef.current = true;
@@ -30,8 +31,22 @@ export function DelayedLockVideo({
 
   useEffect(() => {
     const timer = window.setTimeout(startVideo, 30000);
-    return () => window.clearTimeout(timer);
-  }, []);
+    const pauseWhenAnotherStarts = (event: Event) => {
+      const customEvent = event as CustomEvent<string>;
+      if (customEvent.detail === video) return;
+      const element = videoRef.current;
+      if (!element) return;
+      element.pause();
+      element.currentTime = 0;
+      startedRef.current = false;
+      setPlaying(false);
+    };
+    window.addEventListener("reina:service-video-play", pauseWhenAnotherStarts);
+    return () => {
+      window.clearTimeout(timer);
+      window.removeEventListener("reina:service-video-play", pauseWhenAnotherStarts);
+    };
+  }, [video]);
 
   return (
     <div

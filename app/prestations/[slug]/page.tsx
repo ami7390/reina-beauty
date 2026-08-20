@@ -17,6 +17,14 @@ const families = {
 
 type FamilySlug = keyof typeof families;
 
+const heroVideos: Partial<Record<FamilySlug, { src: string; poster?: string; label: string }>> = {
+  locks: { src: "https://www.pexels.com/download/video/7951294/", poster: "/images/coiffures/locks/reina-installation-locks-tiktok.webp", label: "Coiffure afro et locks en salon" },
+  tresses: { src: "https://www.pexels.com/download/video/7951294/", poster: "/images/coiffures/nattes/reina-nattes-artistiques.webp", label: "Tressage afro en salon" },
+  "soins-visage": { src: "https://www.pexels.com/download/video/12322704/", label: "Soin du visage sur peau noire" },
+  "soins-cheveux": { src: "https://www.pexels.com/download/video/7951294/", label: "Soin et coiffure de cheveux afro" },
+  onglerie: { src: "https://www.pexels.com/download/video/7754446/", label: "Manucure en salon" },
+};
+
 const serviceVideos: Partial<Record<number, string>> = {
   1: "/videos/locks/microlocks-creation.mp4",
   2: "/videos/locks/microlocks-entretien.mp4",
@@ -46,18 +54,18 @@ export default async function ServiceFamilyPage({ params }: { params: Promise<{ 
   const items = services.filter((service) => service.category === family.category);
 
   return <main className="min-h-screen bg-luxury-bg pb-20">
-    <section className={`relative isolate overflow-hidden border-b border-luxury-line px-5 py-16 lg:px-8 ${slug === "tresses" ? "bg-luxury-wine text-white" : "bg-gradient-to-br from-white to-[#f4e8ea]"}`}>
-      {slug === "tresses" && <>
-        <video autoPlay muted loop playsInline preload="metadata" poster="/images/coiffures/nattes/reina-nattes-artistiques.webp" className="absolute inset-0 -z-20 h-full w-full object-cover" aria-label="Coiffure et tressage en salon">
-          <source src="https://www.pexels.com/download/video/7951294/" type="video/mp4" />
+    <section className={`relative isolate overflow-hidden border-b border-luxury-line px-5 py-16 lg:px-8 ${heroVideos[slug as FamilySlug] ? "bg-luxury-wine text-white" : "bg-gradient-to-br from-white to-[#f4e8ea]"}`}>
+      {heroVideos[slug as FamilySlug] && <>
+        <video autoPlay muted loop playsInline preload="metadata" poster={heroVideos[slug as FamilySlug]?.poster} className="absolute inset-0 -z-20 h-full w-full object-cover" aria-label={heroVideos[slug as FamilySlug]?.label}>
+          <source src={heroVideos[slug as FamilySlug]?.src} type="video/mp4" />
         </video>
         <div className="absolute inset-0 -z-10 bg-gradient-to-r from-[#3f1023]/95 via-[#3f1023]/78 to-[#3f1023]/48" />
       </>}
       <div className="mx-auto max-w-6xl">
-        <Link href="/coiffures-tarifs#explorer" className={`inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider ${slug === "tresses" ? "text-white" : "text-luxury-wine"}`}><ArrowLeft className="size-4" /> Toutes les prestations</Link>
-        <span className={`mt-8 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-wider ${slug === "tresses" ? "bg-white/15 text-white backdrop-blur-sm" : "bg-white text-luxury-wine"}`}><Sparkles className="size-4" /> Reina Beauty</span>
-        <h1 className={`mt-5 max-w-4xl font-serif text-5xl font-bold sm:text-6xl ${slug === "tresses" ? "text-white" : "text-luxury-wine"}`}>{family.title}</h1>
-        <p className={`mt-5 max-w-2xl text-sm leading-7 ${slug === "tresses" ? "text-white/80" : "text-luxury-muted"}`}>{family.intro}</p>
+        <Link href="/coiffures-tarifs#explorer" className={`inline-flex items-center gap-2 text-[10px] font-bold uppercase tracking-wider ${heroVideos[slug as FamilySlug] ? "text-white" : "text-luxury-wine"}`}><ArrowLeft className="size-4" /> Toutes les prestations</Link>
+        <span className={`mt-8 flex w-fit items-center gap-2 rounded-full px-4 py-2 text-[10px] font-bold uppercase tracking-wider ${heroVideos[slug as FamilySlug] ? "bg-white/15 text-white backdrop-blur-sm" : "bg-white text-luxury-wine"}`}><Sparkles className="size-4" /> Reina Beauty</span>
+        <h1 className={`mt-5 max-w-4xl font-serif text-5xl font-bold sm:text-6xl ${heroVideos[slug as FamilySlug] ? "text-white" : "text-luxury-wine"}`}>{family.title}</h1>
+        <p className={`mt-5 max-w-2xl text-sm leading-7 ${heroVideos[slug as FamilySlug] ? "text-white/80" : "text-luxury-muted"}`}>{family.intro}</p>
       </div>
     </section>
 
