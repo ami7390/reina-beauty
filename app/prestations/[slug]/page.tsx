@@ -16,6 +16,15 @@ const families = {
 
 type FamilySlug = keyof typeof families;
 
+const serviceVideos: Partial<Record<number, string>> = {
+  1: "/videos/locks/microlocks-creation.mp4",
+  2: "/videos/locks/microlocks-entretien.mp4",
+  19: "/videos/locks/dreadlocks.mp4",
+  20: "/videos/locks/sister-locks.mp4",
+  22: "/videos/locks/twist.mp4",
+  23: "/videos/locks/micro-twist.mp4",
+};
+
 export function generateStaticParams() {
   return Object.keys(families).map((slug) => ({ slug }));
 }
@@ -62,6 +71,11 @@ export default async function ServiceFamilyPage({ params }: { params: Promise<{ 
       <div className="grid gap-7 md:grid-cols-2 xl:grid-cols-3">
         {items.map((service) => <article key={service.id} className="overflow-hidden rounded-3xl border border-luxury-line bg-white shadow-sm">
           <div className="relative h-60 overflow-hidden"><ManagedImage src={service.image} alt={service.title} className={`h-full w-full ${service.title === "Napi" ? "bg-luxury-bg object-contain object-top" : "object-cover"}`} />{service.highlight && <span className="absolute left-4 top-4 rounded-full bg-luxury-wine px-3 py-1 text-[9px] font-bold uppercase tracking-wider text-white">{service.highlight}</span>}</div>
+          {slug === "locks" && serviceVideos[service.id] && <div className="border-t border-luxury-line bg-black">
+            <video controls playsInline preload="none" poster={service.image} className="aspect-[4/3] w-full object-cover" aria-label={`Vidéo ${service.title}`}>
+              <source src={serviceVideos[service.id]} type="video/mp4" />
+            </video>
+          </div>}
           <div className="p-6">
             <h2 className="font-serif text-2xl font-bold">{service.title}</h2>
             <p className="mt-1 text-xs font-semibold text-luxury-pink">{service.subtitle}</p>
