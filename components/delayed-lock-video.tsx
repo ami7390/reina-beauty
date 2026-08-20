@@ -16,21 +16,28 @@ export function DelayedLockVideo({
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
   const [playing, setPlaying] = useState(false);
+  const startedRef = useRef(false);
+
+  const startVideo = () => {
+    if (startedRef.current) return;
+    const element = videoRef.current;
+    if (!element) return;
+    startedRef.current = true;
+    element.play().catch(() => {
+      startedRef.current = false;
+    });
+  };
 
   useEffect(() => {
-    const timer = window.setTimeout(() => {
-      const element = videoRef.current;
-      if (!element) return;
-      element.play().catch(() => {
-        // Le navigateur peut exceptionnellement bloquer l’autoplay.
-        // Dans ce cas l’image reste visible et les contrôles restent accessibles.
-      });
-    }, 3000);
+    const timer = window.setTimeout(startVideo, 30000);
     return () => window.clearTimeout(timer);
   }, []);
 
   return (
-    <div className="relative h-72 overflow-hidden bg-black">
+    <div
+      className="relative h-72 overflow-hidden bg-black"
+      onPointerEnter={startVideo}
+    >
       <ManagedImage
         src={image}
         alt={alt}
