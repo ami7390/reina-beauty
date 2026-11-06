@@ -1,7 +1,7 @@
 
 import type { MetadataRoute } from "next";
 
-const BASE_URL = "https://reina.click";
+const BASE_URL = "https://www.reina.click";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const routes = [

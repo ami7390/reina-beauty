@@ -12,6 +12,6 @@ export default function robots(): MetadataRoute.Robots {
         "/maintenance",
       ],
     },
-    sitemap: "https://reina.click/sitemap.xml",
+    sitemap: "https://www.reina.click/sitemap.xml",
   };
 }
